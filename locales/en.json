@@ -121,12 +121,5 @@
 		"Off": "<:CX:1316032934230360175> Disable",
 		"Enable": "Enable",
 		"Disable": "Disable"
-	},
-	"setworkcatch": {
-		"setting": {
-			"settingCard": {
-				"description": "setworkcatch.setting.settingCard.description"
-			}
-		}
 	}
 }
