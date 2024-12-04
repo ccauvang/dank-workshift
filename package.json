@@ -1,0 +1,28 @@
+{
+  "name": "dank-workshift",
+  "version": "1.0.0",
+  "description": "Dank memer work shift hellper",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccauvang/dank-workshift.git"
+  },
+  "keywords": [
+    "dank",
+    "memer"
+  ],
+  "author": "ccauvang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccauvang/dank-workshift/issues"
+  },
+  "homepage": "https://github.com/ccauvang/dank-workshift",
+  "dependencies": {
+    "@discordjs/builders": "^1.9.0",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7"
+  }
+}

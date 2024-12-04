@@ -1,0 +1,11 @@
+# package
+package-lock.json
+
+# env
+.env
+
+# test
+test.js
+
+# node module
+node_modules/
