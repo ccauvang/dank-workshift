@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
   const msgRootInteract = message.interaction;
 
   console.log(embedOfMessage);
-  console.log(msgRootInteract);
+  // console.log(msgRootInteract);
 
   if (msgRootInteract.commandName == 'work shift') {
     await message.react('1313857088245731359');
