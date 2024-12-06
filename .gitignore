@@ -7,5 +7,12 @@ package-lock.json
 # test
 test.js
 
+# log
+log.t
+log.txt
+
 # node module
 node_modules/
+
+# idea
+mission.t
