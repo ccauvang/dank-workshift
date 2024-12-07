@@ -7,7 +7,7 @@ module.exports = async (client) => {
 
     await db.set(`botInfo.server`, client.guilds.cache.size);
 
-    const arrMessage = ['d.h', 'My defaul prefix is: d.', 'You can tag me to know prefix of your servers'];
+    const arrMessage = ['d.h', 'My defaul prefix is: d.', 'Tag me to know your prefix server and your Dank Memer work catch status'];
     const arrStatus = ['online', 'dnd', 'idle'];
 
     // count variable
