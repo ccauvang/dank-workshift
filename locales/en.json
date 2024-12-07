@@ -1,0 +1,88 @@
+{
+	"info": {
+		"help": {
+			"description": "Show some info to help you.",
+			"helpCard": {
+				"title": "My command",
+				"description": "This is all my command I have.",
+				"footer": "For further information try this ^help <command name or aliases>."
+			},
+			"helpCmdCard": {
+				"title": "More details of command.",
+				"description": "Hopefuly this can help you.",
+				"fields": {
+					"name": "{name}",
+					"value": "<:CTG_1:1314635017191690240> **Description:** {description} \n <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n <:CTG_1:1314635017191690240> **Usage:** {usage} \n <:CTG_2:1314635037198520352> **Category:** {category}"
+				},
+				"footer": "If you want more details about single command try this ^help <command name or aliases>."
+			},
+			"helpCmdCard,description": "info.help.helpCmdCard,description"
+		},
+		"ping": {
+			"description": "Show my ping.",
+			"card": {
+				"title": "Pong 🏓.",
+				"description": "<a:G:1313857088245731359> {ping}ms."
+			}
+		},
+		"uptime": {
+			"description": "Show how long I online.",
+			"card": {
+				"title": "I was online.",
+				"description": "{time} ago."
+			}
+		}
+	},
+	"setting": {
+		"setworkcatch": {
+			"description": "Set status bot help your work or not.",
+			"newUserCard": {
+				"title": "Omg your are new user damnnnnnn.",
+				"description": "Ok I turn on for you."
+			},
+			"settingCard": {
+				"title": "Ok I'll turn your status {status}. "
+			}
+		},
+		"setprefix": {
+			"description": "Set your server prefix.",
+			"nonPremission": {
+				"title": "You don't have enough permission to set prefix of this server.",
+				"description": " You need admin permission to set prefix."
+			},
+			"resetPrefixCard": {
+				"title": "Reset successful.",
+				"description": "Your server prefix reset to **{defaultPrefix}**",
+				"footer": "User use this command is {tag}."
+			},
+			"setPrefixCard": {
+				"preview": {
+					"title": "Set prefix.",
+					"description": "Your current prefix is: **{currentPrefix}**",
+					"footer": "User use this command is {tag}."
+				},
+				"success": {
+					"title": "Set successful.",
+					"description": "Your prefix recently set is: **{prefix}**",
+					"footer": "User use this command is {tag}."
+				}
+			}
+		}
+	},
+	"tagRespondCard": {
+		"title": "Do you need help?",
+		"description": "Prefix of this server is: **{serverPrefix}** \n Your Dank work catch status is: **{userStatus}**.",
+		"footer": "Was this helpful?"
+	},
+	"timeFormat": {
+		"years": "years",
+		"days": "days",
+		"hours": "hours",
+		"minutes": "minutes",
+		"seconds": "seconds"
+	},
+	"common": {
+		"cooldownMessage": "Hey chill bro \n wait {cooldownTime}.",
+		"errorCommand": "Error command."
+	}
+}
