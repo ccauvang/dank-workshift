@@ -1,4 +1,4 @@
-const { GatewayIntentBits, Client } = require('discord.js');
+const { GatewayIntentBits, Client, Collection } = require('discord.js');
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -12,21 +12,12 @@ const client = new Client({
 require('dotenv').config();
 client.login(process.env.TOKEN);
 
-/* client.on('messageUpdate', async (message) => {
-  if (message.author.id == '991659384776183928') return;
-  console.log('update');
+client.commands = new Collection;
+client.aliases = new Collection;
+client.cooldowns = new Collection;
+client.categorys = new Collection;
 
-  var desMessage = 'Nothing';
-
-  if (message.embeds.length >= 1) {
-    desMessage = message.embeds[0].data.description;
-  };
-
-  await message.channel.send({ content: `${desMessage}` });
-
-}); */
-
-['event'].forEach((handler) => {
+['event', 'command'].forEach((handler) => {
   const callHandler = require(`./handlers/${handler}`);
   callHandler(client);
 });
