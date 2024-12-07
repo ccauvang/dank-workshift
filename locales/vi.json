@@ -1,0 +1,89 @@
+{
+	"info": {
+		"help": {
+			"description": "Hiển thị thông tin command.",
+			"helpCard": {
+				"title": "My command",
+				"description": "Đây là tất cả command tôi có.",
+				"footer": "Để biết chi tiết về command ^help <tên command or aliases>."
+			},
+			"helpCmdCard": {
+				"title": "Thông tin chi tết về command.",
+				"description": "Mong rằng thông tin này hữ ích.",
+				"fields": {
+					"name": "{name}",
+					"value": "<:CTG_1:1314635017191690240> **Description:** {description} \n <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n <:CTG_1:1314635017191690240> **Usage:** {usage} \n <:CTG_2:1314635037198520352> **Category:** {category}"
+				},
+				"footer": "Nếu bản muốn biết thêm thông tin về command khác hãy thử ^help <tên command or aliases>."
+			}
+		},
+		"ping": {
+			"description": "Hiển thị ping của tôi.",
+			"card": {
+				"title": "Pong 🏓.",
+				"description": "<a:G:1313857088245731359> {ping}ms."
+			}
+		},
+		"uptime": {
+			"description": "Hiển thị thời gian uptime của tôi.",
+			"card": {
+				"title": "Tôi đã uptime được.",
+				"description": "{time} trước."
+			}
+		}
+	},
+	"setting": {
+		"setworkcatch": {
+			"description": "Cài đặt trạng thái bot có bắt Dank Memer hay không.",
+			"newUserCard": {
+				"title": "OMG bạn là người dùng mới damnnnnnn.",
+				"description": "Ok tôi đã bật cho bạn."
+			},
+			"settingCard": {
+				"title": "Ok tôi sẽ {status} cho bạn. "
+			}
+		},
+		"setprefix": {
+			"description": "Cài bot prefix cho server của bạn.",
+			"nonPremission": {
+				"title": "Bạn không có đủ quyền hạn để set prefix.",
+				"description": "Bạn cần quyền admin để set prefix."
+			},
+			"resetPrefixCard": {
+				"title": "Reset prefix thành công.",
+				"description": "Prefix server của bạn được cài lại thành **{defaultPrefix}**",
+				"footer": "Người dùng command này là: {tag}."
+			},
+			"setPrefixCard": {
+				"preview": {
+					"title": "Set prefix.",
+					"description": "Your current prefix is: **{currentPrefix}**",
+					"footer": "Người dùng command này là: {tag}."
+				},
+				"success": {
+					"title": "Set successful.",
+					"description": "Your prefix recently set is: **{prefix}**",
+					"footer": "Người dùng command này là: {tag}."
+				}
+			}
+		}
+	},
+	"tagRespondCard": {
+		"title": "Bạn đang cần giúp?",
+		"description": "Prefix server của bạn: **{serverPrefix}** \n Trạng thái Dank Memer work catch của bạn đang: **{userStatus}**.",
+		"footer": "Was this helpful?"
+	},
+	"timeFormat": {
+		"years": "năm",
+		"days": "ngày",
+		"hours": "giờ",
+		"minutes": "phút",
+		"seconds": "giây"
+	},
+	"common": {
+		"cooldownMessage": "Hey chill bro \n Đợi {cooldownTime}.",
+		"errorCommand": "Error command.",
+		"On": "Bật",
+		"Off": "Tắt"
+	}
+}
