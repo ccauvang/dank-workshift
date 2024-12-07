@@ -15,8 +15,7 @@
 					"value": "<:CTG_1:1314635017191690240> **Description:** {description} \n <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n <:CTG_1:1314635017191690240> **Usage:** {usage} \n <:CTG_2:1314635037198520352> **Category:** {category}"
 				},
 				"footer": "If you want more details about single command try this ^help <command name or aliases>."
-			},
-			"helpCmdCard,description": "info.help.helpCmdCard,description"
+			}
 		},
 		"ping": {
 			"description": "Show my ping.",
