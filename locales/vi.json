@@ -71,7 +71,7 @@
 	"tagRespondCard": {
 		"title": "Bạn đang cần giúp?",
 		"description": "Prefix server của bạn: **{serverPrefix}** \n Trạng thái Dank Memer work catch của bạn đang: **{userStatus}**.",
-		"footer": "Was this helpful?"
+		"footer": "Nó giúp ích bạn chứ?"
 	},
 	"timeFormat": {
 		"years": "năm",
