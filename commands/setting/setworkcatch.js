@@ -33,7 +33,7 @@ module.exports = {
         };
 
         const settingCard = new EmbedBuilder()
-            .setTitle(ie.__mf(`${this.category}.${this.name}.settingCard.title`, { status: userStatus == 1 ? 'OFF' : 'ON' }))
+            .setTitle(ie.__mf(`${this.category}.${this.name}.settingCard.title`, { status: userStatus == 1 ? ie.__('common.Off') : ie.__('common.On') }))
             .setTimestamp();
 
         if (userStatus) {

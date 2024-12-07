@@ -30,7 +30,7 @@ module.exports = async (client, message) => {
 
   let userStatus = await db.get(`User._${message.author.id}.catchDankMsg`);
 
-  userStatus = (userStatus == 0 || userStatus == null) ? 'OFF' : 'ON';
+  userStatus = (userStatus == 0 || userStatus == null) ? ie.__('common.Off') : ie.__('common.On');
 
 
 

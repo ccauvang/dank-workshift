@@ -47,7 +47,7 @@
 			"description": "Set your server prefix.",
 			"nonPremission": {
 				"title": "You don't have enough permission to set prefix of this server.",
-				"description": " You need admin permission to set prefix."
+				"description": "You need admin permission to set prefix."
 			},
 			"resetPrefixCard": {
 				"title": "Reset successful.",
@@ -82,6 +82,8 @@
 	},
 	"common": {
 		"cooldownMessage": "Hey chill bro \n wait {cooldownTime}.",
-		"errorCommand": "Error command."
+		"errorCommand": "Error command.",
+		"On": "ON",
+		"Off": "OFF"
 	}
 }
