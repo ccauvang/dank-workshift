@@ -30,9 +30,9 @@ module.exports = {
             const categorys = client.categorys.keys();
             for (ctg of categorys) {
                 const commands = client.categorys.get(ctg);
-                const commandFields = commands.join(', ');
+                const commandFields = '<:CTG_2:1314635037198520352>' + commands.join(', ');
                 helpCard.addFields({
-                    name: ctg, value: commandFields, inline: true
+                    name: ctg, value: commandFields, inline: false
                 });
             };
             message.channel.send({ embeds: [helpCard] }).then(msg => {
