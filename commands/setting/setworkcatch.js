@@ -16,7 +16,7 @@ module.exports = {
         const userStatus = await db.get(`User._${message.author.id}.catchDankMsg`);
 
         if (userStatus == null) {
-            await db.set(`User.user_${message.author.id}.catchDankMsg`, 1);
+            await db.set(`User._${message.author.id}.catchDankMsg`, 1);
 
             const newUserCard = new EmbedBuilder()
                 .setTitle(ie.__(`${this.category}.${this.name}.newUserCard.title`))

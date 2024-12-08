@@ -50,7 +50,7 @@
 				"description": "Bạn cần quyền admin để set prefix."
 			},
 			"setprefixModal": {
-				"title": "Prefix bạn muốn set."
+				"title": "Prefix bạn muốn set cho server."
 			},
 			"resetPrefixCard": {
 				"title": "Reset prefix thành công.",
@@ -68,6 +68,9 @@
 					"description": "Prefix bạn vừa mới set là: **{prefix}**",
 					"footer": "Người dùng command này là: {tag}."
 				}
+			},
+			"setPrefixModal": {
+				"title": "Prefix you want to set for this server."
 			}
 		}
 	},
