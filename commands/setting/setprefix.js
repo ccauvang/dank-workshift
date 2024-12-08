@@ -25,6 +25,8 @@ module.exports = {
             return;
         };
 
+        const defaultPrefix = process.env.PREFIX;
+
         const setPrefixButton = new ButtonBuilder()
             .setCustomId('setPreBtn')
             .setLabel('Set prefix')
@@ -40,7 +42,7 @@ module.exports = {
 
         const currentPrefix = await db.get(`Guild._${message.guild.id}.prefix`);
 
-        if (currentPrefix != null && currentPrefix != process.env.PREFIX) {
+        if (currentPrefix != null && currentPrefix != defaultPrefix) {
             setPrefixButtonRow.addComponents(resetPrefixButton);
         };
 
@@ -55,7 +57,7 @@ module.exports = {
 
         const setPrefixModal = new ModalBuilder()
             .setCustomId(`setPrefixModal_${message.author.id}`)
-            .setTitle('Prefix you want to set for this server.')
+            .setTitle(ie.__(`${this.category}.${this.name}.setPrefixModal.title`))
             .setComponents(
                 new ActionRowBuilder().addComponents(setPrefixInput)
             );
@@ -133,14 +135,14 @@ module.exports = {
 
                 const ressetPrefixCard = new EmbedBuilder()
                     .setTitle(ie.__(`${this.category}.${this.name}.resetPrefixCard.title`))
-                    .setDescription(ie.__mf(`${this.category}.${this.name}.resetPrefixCard.description`, { defaultPrefix: process.env.PREFIX }))
+                    .setDescription(ie.__mf(`${this.category}.${this.name}.resetPrefixCard.description`, { defaultPrefix: defaultPrefix }))
                     .setColor(0x00FF80)
                     .setFooter({ text: ie.__mf(`${this.category}.${this.name}.resetPrefixCard.footer`, { tag: message.author.tag, }), iconURL: message.author.avatarURL() })
                     .setTimestamp();
 
                 await buttonInteraction.update({ embeds: [ressetPrefixCard], components: [] });
 
-                await db.set(`Guild._${buttonInteraction.guildId}.prefix`, process.env.PREFIX)
+                await db.set(`Guild._${buttonInteraction.guildId}.prefix`, defaultPrefix)
                 collector.resetTimer({ time: 60 * 1e3 });
                 return;
             }
