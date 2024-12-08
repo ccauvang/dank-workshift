@@ -89,7 +89,7 @@ module.exports = {
 
         collector.on('collect', async (buttonInteraction) => {
             if (!filter(buttonInteraction)) {
-                buttonInteraction.reply({ content: `This isn't your bro!`, flags: MessageFlags.Ephemeral })
+                buttonInteraction.reply({ content: ie.__(`common.isntYour`), flags: MessageFlags.Ephemeral })
                 return;
             };
 
