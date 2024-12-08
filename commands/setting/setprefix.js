@@ -92,14 +92,11 @@ module.exports = {
                 buttonInteraction.reply({ content: `This isn't your bro!`, flags: MessageFlags.Ephemeral })
                 return;
             };
-            console.log('Im hare');
 
             if (buttonInteraction.customId == 'setPreBtn') {
-                console.log('i got clicked');
                 await buttonInteraction.showModal(setPrefixModal);
                 if (canAddAwaitModal) {
                     canAddAwaitModal = false;
-                    console.log('Add new modal');
 
                     await buttonInteraction.awaitModalSubmit({ filter, time: 120 * 1e3 })
                         .then(async (modalInteraction) => {

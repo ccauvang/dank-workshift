@@ -49,8 +49,8 @@
 				"title": "You don't have enough permission to set prefix of this server.",
 				"description": "You need admin permission to set prefix."
 			},
-			"setprefixModal": {
-				"title": "Prefix you want to set for this server."
+			"setPrefixModal": {
+				"title": "Prefix you want to set."
 			},
 			"resetPrefixCard": {
 				"title": "Reset successful.",
