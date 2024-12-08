@@ -69,6 +69,36 @@
 					"footer": "User use this command is {tag}."
 				}
 			}
+		},
+		"setlanguage": {
+			"description": "Set language bot use in your server.",
+			"nonPermissionCard": {
+				"title": "You don't have enough permission to set prefix of this server.",
+				"description": "You need admin permission to set prefix."
+			},
+			"languageOptions": {
+				"en": {
+					"lable": "En",
+					"description": "Set language to English."
+				},
+				"vi": {
+					"lable": "Vi",
+					"description": "Set language to Vietnam."
+				}
+			},
+			"setLangMenu": {
+				"placeholder": "Choose language."
+			},
+			"setLanguageCard": {
+				"title": "Set language.",
+				"description": "Your current language is: **{currentLanguage}**",
+				"footer": "User use this command is {tag}."
+			},
+			"setLanguageSuccessCard": {
+				"title": "Set language success.",
+				"description": "Language recently set is: **{setLang}**",
+				"footer": "User use this command is {tag}."
+			}
 		}
 	},
 	"tagRespondCard": {
@@ -86,6 +116,7 @@
 	"common": {
 		"cooldownMessage": "Hey chill bro \n wait {cooldownTime}.",
 		"errorCommand": "Error command.",
+		"isntYour": "This isn't your bro!",
 		"On": "ON",
 		"Off": "OFF"
 	}

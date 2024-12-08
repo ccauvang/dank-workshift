@@ -27,7 +27,7 @@
 		"uptime": {
 			"description": "Hiển thị thời gian uptime.",
 			"card": {
-				"title": "Tôi đã uptime được.",
+				"title": "Đã uptime được.",
 				"description": "{time} trước."
 			}
 		}
@@ -71,6 +71,35 @@
 			},
 			"setPrefixModal": {
 				"title": "Prefix you want to set for this server."
+			}
+		},
+		"setlanguage": {
+			"nonPermissionCard": {
+				"title": "Bạn không có đủ quyền hạn.",
+				"description": "Bạn cần quyền admin để set language."
+			},
+			"languageOptions": {
+				"en": {
+					"lable": "En",
+					"description": "Đặt ngôn ngữ qua tiếng Anh."
+				},
+				"vi": {
+					"lable": "Vi",
+					"description": "Đặt ngôn ngữ thành tiếng Việt."
+				}
+			},
+			"setLangMenu": {
+				"placeholder": "Chọn ngôn ngữ."
+			},
+			"setLanguageCard": {
+				"title": "Cài ngôn ngữ.",
+				"description": "Ngôn ngữ hiện tại là: **{currentLanguage}**",
+				"footer": "Người dùng command này là: {tag}"
+			},
+			"setLanguageSuccessCard": {
+				"title": "Cài ngôn ngữ thành công.",
+				"description": "Ngôn ngữ vừa được chọn là: **{setLang}**",
+				"footer": "Người dùng command này là: {tag}"
 			}
 		}
 	},
