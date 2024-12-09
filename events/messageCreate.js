@@ -86,14 +86,16 @@ module.exports = async (client, message) => {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1e3;
-      setTimeout(() =>
-        message.delete().catch(console.error), 2 * 1e3);
+
+      setTimeout(() => {
+        message.delete().catch(console.error);
+      }, 2 * 1e3);
 
       const cooldownEmbed = new EmbedBuilder()
         .setTitle(ie.__mf('common.cooldownMessage', { cooldownTime: timeFormat(timeLeft.toFixed(0), lang) }))
         .setColor(0xFF0000);
 
-      return message.channel.send({ embeds: [cooldownEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15000));
+      return message.channel.send({ embeds: [cooldownEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
     }
   } else {
     timestamps.set(message.author.id, now);
