@@ -58,13 +58,13 @@ module.exports = async (client, message) => {
         }
       }), 1500);
 
-    const tagRespondCard = new EmbedBuilder()
-      .setTitle(ie.__(`tagRespondCard.title`))
-      .setDescription(ie.__mf(`tagRespondCard.description`, { serverPrefix: serverPrefix, userStatus: userStatus }))
+    const tagResponseCard = new EmbedBuilder()
+      .setTitle(ie.__(`tagResponseCard.title`))
+      .setDescription(ie.__mf(`tagResponseCard.description`, { serverPrefix: serverPrefix, userStatus: userStatus }))
       .setColor(0x00FF80)
-      .setFooter({ text: ie.__(`tagRespondCard.footer`) })
+      .setFooter({ text: ie.__(`tagResponseCard.footer`) })
       .setTimestamp();
-    return message.channel.send({ embeds: [tagRespondCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 1200000));
+    return message.channel.send({ embeds: [tagResponseCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 1200000));
   };
 
   const command =

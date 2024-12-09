@@ -7,7 +7,7 @@ module.exports = {
        * @returns
        * @param {number} inputTimeSecond - Number seconds to format. 
        * @param {string} lang - Language to respone.
-       * @param {Boolean|false} typeShort - Type of respond long or short default is long.
+       * @param {Boolean|false} typeShort - Type of response long or short default is long.
       */
     timeFormat: function (inputTimeSecond, lang, typeShort = false) {
 

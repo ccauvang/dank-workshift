@@ -103,7 +103,7 @@
 			}
 		}
 	},
-	"tagRespondCard": {
+	"tagResponseCard": {
 		"title": "Bạn đang cần giúp?",
 		"description": "Prefix server của bạn: **{serverPrefix}** \n Trạng thái Dank Memer work catch của bạn đang: **{userStatus}**.",
 		"footer": "Nó giúp ích bạn chứ?"

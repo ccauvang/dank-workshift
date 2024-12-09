@@ -101,7 +101,7 @@
 			}
 		}
 	},
-	"tagRespondCard": {
+	"tagResponseCard": {
 		"title": "Do you need help?",
 		"description": "Prefix of this server is: **{serverPrefix}** \n Your Dank work catch status is: **{userStatus}**.",
 		"footer": "Was this helpful?"
