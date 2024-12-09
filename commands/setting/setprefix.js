@@ -16,11 +16,12 @@ module.exports = {
 
         setLocale(lang);
 
+        const nonPremission = new EmbedBuilder()
+            .setTitle(ie.__(`${this.category}.${this.name}.nonPremission.title`))
+            .setDescription(ie.__(`${this.category}.${this.name}.nonPremission.description`))
+            .setColor(0xFF0000);
+
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            const nonPremission = new EmbedBuilder()
-                .setTitle(ie.__(`${this.category}.${this.name}.nonPremission.title`))
-                .setDescription(ie.__(`${this.category}.${this.name}.nonPremission.description`))
-                .setColor(0xFF0000);
             message.channel.send({ embeds: [nonPremission] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
             return;
         };
@@ -82,14 +83,19 @@ module.exports = {
             time: 120 * 1e3
         });
 
-        var canAddAwaitModal = true;
-        var endCollector = false;
+        let canAddAwaitModal = true;
+        let endCollector = false;
 
 
 
         collector.on('collect', async (buttonInteraction) => {
             if (!filter(buttonInteraction)) {
                 buttonInteraction.reply({ content: ie.__(`common.isntYour`), flags: MessageFlags.Ephemeral })
+                return;
+            };
+
+            if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
+                menuInteraction.reply({ embeds: [nonPermissionCard], flags: MessageFlags.Ephemeral });
                 return;
             };
 
