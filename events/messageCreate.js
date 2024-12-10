@@ -56,7 +56,7 @@ module.exports = async (client, message) => {
         if (error.code == 10008) {
           console.error(`Error delete when they ping me.`);
         }
-      }), 1500);
+      }), 2000);
 
     const tagResponseCard = new EmbedBuilder()
       .setTitle(ie.__(`tagResponseCard.title`))
@@ -64,7 +64,7 @@ module.exports = async (client, message) => {
       .setColor(0x00FF80)
       .setFooter({ text: ie.__(`tagResponseCard.footer`) })
       .setTimestamp();
-    return message.channel.send({ embeds: [tagResponseCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 1200000));
+    return message.channel.send({ embeds: [tagResponseCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 120 * 1e3));
   };
 
   const command =
@@ -117,7 +117,7 @@ module.exports = async (client, message) => {
       .setTitle(ie.__('common.errorCommand'))
       .setColor(0xFF0000);
     console.log(error);
-    return message.channel.send({ embeds: [errorEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15000));
+    return message.channel.send({ embeds: [errorEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
   }
 
   // await message.channel.send({ content: `${desMessage.data.description}` });
