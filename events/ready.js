@@ -1,9 +1,12 @@
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: "database/main.sqlite" });
 const chalk = require('chalk');
+const moment = require('moment');
 
 module.exports = async (client) => {
+    const now = moment().format('hh:mm:ss | DD/MMM/YYYY');
     console.log(chalk.yellow.bold(`${client.user.username}`), chalk.greenBright(`IS READY NOW!`));
+    console.log(chalk.cyanBright(now))
 
     await db.set(`botInfo.server`, client.guilds.cache.size);
 
