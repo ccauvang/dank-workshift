@@ -20,7 +20,7 @@
 		"ping": {
 			"description": "Show my ping.",
 			"card": {
-				"title": "Pong 🏓.",
+				"title": "Pong 🏓",
 				"description": "> <a:G:1313857088245731359> {ping}ms."
 			}
 		},
