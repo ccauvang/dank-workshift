@@ -19,3 +19,6 @@ mission.t
 
 # database
 database/main.sqlite
+
+# .vscode folder
+.vscode/
