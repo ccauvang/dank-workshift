@@ -26,6 +26,6 @@ async function workProcessMgs(message) {
             };
         });
     };
-}
+};
 
 module.exports = workProcessMgs;
