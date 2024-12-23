@@ -17,7 +17,7 @@ module.exports = {
             try {
                 parseInt(inputTimeSecond);
             } catch (error) {
-                throw Error('input allowed only number');
+                throw Error('Input allowed only number');
             }
         };
 
