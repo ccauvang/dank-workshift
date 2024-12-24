@@ -27,9 +27,9 @@ module.exports = {
                 .setFooter({ text: ie.__(`${this.category}.${this.name}.helpCard.footer`).replace(/[\^]/g, prefixServer) })
                 .setTimestamp();
 
-            const categorys = client.categorys.keys();
-            for (ctg of categorys) {
-                const commands = client.categorys.get(ctg);
+            const categories = client.categories.keys();
+            for (ctg of categories) {
+                const commands = client.categories.get(ctg);
                 const commandFields = '<:CTG_2:1314635037198520352>' + commands.join(', ');
                 helpCard.addFields({
                     name: ctg, value: commandFields, inline: false

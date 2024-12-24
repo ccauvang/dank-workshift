@@ -15,7 +15,7 @@ client.login(process.env.TOKEN);
 client.commands = new Collection;
 client.aliases = new Collection;
 client.cooldowns = new Collection;
-client.categorys = new Collection;
+client.categories = new Collection;
 
 ['event', 'command'].forEach((handler) => {
   const callHandler = require(`./handlers/${handler}`);
