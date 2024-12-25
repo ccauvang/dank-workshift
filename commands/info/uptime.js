@@ -4,8 +4,8 @@ const { timeFormat } = require('../../util/timeFormat')
 
 module.exports = {
     name: 'uptime',
-    description: 'info.uptime.description',
     aliases: ['up', 'live'],
+    description: 'info.uptime.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
     usage: '^uptime',

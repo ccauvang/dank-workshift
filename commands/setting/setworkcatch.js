@@ -6,8 +6,8 @@ const db = new QuickDB({ filePath: 'database/main.sqlite' });
 
 module.exports = {
     name: 'setworkcatch',
-    description: 'setting.setworkcatch.description',
     aliases: ['swc', 'wc'],
+    description: 'setting.setworkcatch.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
     usage: '^setworkcatch or ^swc',

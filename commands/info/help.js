@@ -5,8 +5,8 @@ const db = new QuickDB({ filePath: 'database/main.sqlite' });
 
 module.exports = {
     name: 'help',
-    description: 'info.help.description',
     aliases: ['h'],
+    description: 'info.help.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
     usage: '^help or ^h',

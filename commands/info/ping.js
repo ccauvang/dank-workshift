@@ -3,8 +3,8 @@ const { setLocale, ie } = require('../../util/i18n');
 
 module.exports = {
     name: 'ping',
-    description: 'info.ping.description',
     aliases: ['pi'],
+    description: 'info.ping.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
     usage: '^ping',
