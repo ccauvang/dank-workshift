@@ -11,7 +11,7 @@ module.exports = {
     description: 'setting.setlanguage.description',
     cooldown: 10,
     category: __dirname.split('\\').pop(),
-    usage: '^setlanguage or ^setlocal',
+    usage: ['^setlanguage', '^setlocal'],
     async run(message, lang) {
         setLocale(lang);
 

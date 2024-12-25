@@ -11,7 +11,7 @@ module.exports = {
     description: 'setting.setprefix.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
-    usage: '^setprefix',
+    usage: ['^setprefix'],
     async run(message, lang) {
 
         setLocale(lang);

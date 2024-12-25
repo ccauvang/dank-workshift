@@ -7,7 +7,7 @@ module.exports = {
     description: 'info.ping.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
-    usage: '^ping',
+    usage: ['^ping'],
     async run(message, lang) {
         setLocale(lang);
 

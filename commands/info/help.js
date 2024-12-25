@@ -9,7 +9,7 @@ module.exports = {
     description: 'info.help.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
-    usage: '^help or ^h',
+    usage: ['^help', '^h'],
     async run(message, lang, args) {
         setLocale(lang);
 
@@ -46,19 +46,28 @@ module.exports = {
         const command = client.commands.get(args[0]) || client.commands.get(client.aliases.get(args[0]));
 
         if (command) {
+            const dataCommand = {
+                aliases: command.aliases.join(', '),
+                description: ie.__(command.description),
+                cooldown: command.cooldown,
+                category: command.category,
+                usage: ie.__(`${this.category}.${this.name}.helpCmdCard.fields.hasNoUsage`)
+            };
+
+            if (command.usage && Array.isArray(command.usage)) {
+                let usage = [];
+                command.usage.forEach((use) => {
+                    usage.push(use.replace(/[\^]/g, prefixServer));
+                });
+                dataCommand.usage = usage.join(', ');
+            };
 
             const helpCmdCard = new EmbedBuilder()
                 .setTitle(ie.__(`${this.category}.${this.name}.helpCmdCard.title`))
                 .setDescription(ie.__(`${this.category}.${this.name}.helpCmdCard.description`))
                 .addFields({
                     name: ie.__mf(`${this.category}.${this.name}.helpCmdCard.fields.name`, { name: command.name }),
-                    value: ie.__mf(`${this.category}.${this.name}.helpCmdCard.fields.value`, {
-                        aliases: command.aliases.join(', '),
-                        description: ie.__(command.description),
-                        cooldown: command.cooldown,
-                        category: command.category,
-                        usage: command.usage.replace(/[\^]/g, prefixServer)
-                    }),
+                    value: ie.__mf(`${this.category}.${this.name}.helpCmdCard.fields.value`, dataCommand),
                     inline: true
                 })
                 .setColor(0x00FF80)

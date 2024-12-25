@@ -10,7 +10,7 @@ module.exports = {
     description: 'setting.setworkcatch.description',
     cooldown: 5,
     category: __dirname.split('\\').pop(),
-    usage: '^setworkcatch or ^swc',
+    usage: ['^setworkcatch', '^swc'],
     async run(message, lang) {
         setLocale(lang);
 
