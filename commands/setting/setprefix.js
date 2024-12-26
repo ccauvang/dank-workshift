@@ -16,13 +16,13 @@ module.exports = {
 
         setLocale(lang);
 
-        const nonPremission = new EmbedBuilder()
-            .setTitle(ie.__(`${this.category}.${this.name}.nonPremission.title`))
-            .setDescription(ie.__(`${this.category}.${this.name}.nonPremission.description`))
+        const nonPermission = new EmbedBuilder()
+            .setTitle(ie.__(`${this.category}.${this.name}.nonPermission.title`))
+            .setDescription(ie.__(`${this.category}.${this.name}.nonPermission.description`))
             .setColor(0xFF0000);
 
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            message.channel.send({ embeds: [nonPremission] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
+            message.channel.send({ embeds: [nonPermission] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
             return;
         };
 
@@ -107,11 +107,11 @@ module.exports = {
                     await buttonInteraction.awaitModalSubmit({ filter, time: 120 * 1e3 })
                         .then(async (modalInteraction) => {
                             if (endCollector == false) {
-                                const prefixRecive = await modalInteraction.fields.getTextInputValue('setPreInp');
-                                await db.set(`Guild._${modalInteraction.guildId}.prefix`, prefixRecive);
+                                const prefixReceive = await modalInteraction.fields.getTextInputValue('setPreInp');
+                                await db.set(`Guild._${modalInteraction.guildId}.prefix`, prefixReceive);
 
                                 setPrefixCard.setTitle(ie.__(`${this.category}.${this.name}.setPrefixCard.success.title`))
-                                setPrefixCard.setDescription(ie.__mf(`${this.category}.${this.name}.setPrefixCard.success.description`, { prefix: prefixRecive }))
+                                setPrefixCard.setDescription(ie.__mf(`${this.category}.${this.name}.setPrefixCard.success.description`, { prefix: prefixReceive }))
                                 setPrefixCard.setFooter({
                                     text: ie.__mf(`${this.category}.${this.name}.setPrefixCard.success.footer`, {
                                         tag: modalInteraction.user.tag,
@@ -136,14 +136,14 @@ module.exports = {
 
             if (buttonInteraction.customId == 'resetPreBtn') {
 
-                const ressetPrefixCard = new EmbedBuilder()
+                const resetPrefixCard = new EmbedBuilder()
                     .setTitle(ie.__(`${this.category}.${this.name}.resetPrefixCard.title`))
                     .setDescription(ie.__mf(`${this.category}.${this.name}.resetPrefixCard.description`, { defaultPrefix: defaultPrefix }))
                     .setColor(0x00FF80)
                     .setFooter({ text: ie.__mf(`${this.category}.${this.name}.resetPrefixCard.footer`, { tag: message.author.tag, }), iconURL: message.author.avatarURL() })
                     .setTimestamp();
 
-                await buttonInteraction.update({ embeds: [ressetPrefixCard], components: [] });
+                await buttonInteraction.update({ embeds: [resetPrefixCard], components: [] });
 
                 await db.set(`Guild._${buttonInteraction.guildId}.prefix`, defaultPrefix)
                 collector.resetTimer({ time: 60 * 1e3 });

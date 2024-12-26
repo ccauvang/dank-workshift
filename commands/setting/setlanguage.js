@@ -32,13 +32,13 @@ module.exports = {
         const languageOptions = [
             {
                 // en
-                lable: ie.__(`${this.category}.${this.name}.languageOptions.en.lable`),
+                label: ie.__(`${this.category}.${this.name}.languageOptions.en.label`),
                 description: ie.__(`${this.category}.${this.name}.languageOptions.en.description`),
                 value: 'en'
             },
             {
                 // vi
-                lable: ie.__(`${this.category}.${this.name}.languageOptions.vi.lable`),
+                label: ie.__(`${this.category}.${this.name}.languageOptions.vi.label`),
                 description: ie.__(`${this.category}.${this.name}.languageOptions.vi.description`),
                 value: 'vi'
             }
@@ -56,7 +56,7 @@ module.exports = {
             if (locale.value != localOfServer) {
 
                 const setLanguageMenuOption = new StringSelectMenuOptionBuilder()
-                    .setLabel(locale.lable)
+                    .setLabel(locale.label)
                     .setDescription(locale.description)
                     .setValue(locale.value);
 
@@ -64,7 +64,7 @@ module.exports = {
             };
         });
 
-        const setLanguageActionRown = new ActionRowBuilder()
+        const setLanguageActionRow = new ActionRowBuilder()
             .addComponents(setlanguageMenu);
 
         const setLanguageCard = new EmbedBuilder()
@@ -79,7 +79,7 @@ module.exports = {
             })
             .setTimestamp();
 
-        const setLanguageMessage = await message.channel.send({ embeds: [setLanguageCard], components: [setLanguageActionRown] });
+        const setLanguageMessage = await message.channel.send({ embeds: [setLanguageCard], components: [setLanguageActionRow] });
 
         function filler(i) {
             return message.author.id == i.user.id;

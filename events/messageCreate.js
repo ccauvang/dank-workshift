@@ -73,12 +73,12 @@ module.exports = async (client, message) => {
 
   if (!command) return;
 
-  if (!client.cooldowns.has(command.name)) {
-    client.cooldowns.set(command.name, new Collection());
+  if (!client.cooldown.has(command.name)) {
+    client.cooldown.set(command.name, new Collection());
   };
 
   const now = Date.now();
-  const timestamps = client.cooldowns.get(command.name);
+  const timestamps = client.cooldown.get(command.name);
   const cooldownAmount = (command.cooldown || 1) * 1e3;
 
   if (timestamps.has(message.author.id)) {

@@ -1,7 +1,7 @@
 {
   "name": "dank-workshift",
   "version": "1.0.0",
-  "description": "Dank memer work shift hellper",
+  "description": "Dank memer work shift helper",
   "main": "index.js",
   "scripts": {
     "start": "node .",

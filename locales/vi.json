@@ -46,7 +46,7 @@
 		},
 		"setprefix": {
 			"description": "Cài prefix cho server của bạn.",
-			"nonPremission": {
+			"nonPermission": {
 				"title": "Bạn không có đủ quyền hạn để set prefix.",
 				"description": "Bạn cần quyền admin để set prefix."
 			},
@@ -81,11 +81,11 @@
 			},
 			"languageOptions": {
 				"en": {
-					"lable": "En",
+					"label": "En",
 					"description": "Đặt ngôn ngữ qua tiếng Anh."
 				},
 				"vi": {
-					"lable": "Vi",
+					"label": "Vi",
 					"description": "Đặt ngôn ngữ thành tiếng Việt."
 				}
 			},

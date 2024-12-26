@@ -9,7 +9,7 @@
 			},
 			"helpCmdCard": {
 				"title": "More details of command.",
-				"description": "> Hopefuly this can help you.",
+				"description": "> Hopefully this can help you.",
 				"fields": {
 					"name": "{name}",
 					"value": "> <:CTG_1:1314635017191690240> **Description:** {description} \n> <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n> <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n> <:CTG_1:1314635017191690240> **Usage:** {usage} \n> <:CTG_2:1314635037198520352> **Category:** {category}",
@@ -37,7 +37,7 @@
 		"setworkcatch": {
 			"description": "Set status bot help your work or not.",
 			"newUserCard": {
-				"title": "Omg your are new user damnnnnnn."
+				"title": "Omg your are new user damnnnn."
 			},
 			"settingCard": {
 				"title": "Catch your Dank Memer work message.",
@@ -46,7 +46,7 @@
 		},
 		"setprefix": {
 			"description": "Set your server prefix.",
-			"nonPremission": {
+			"nonPermission": {
 				"title": "You don't have enough permission to set prefix of this server.",
 				"description": "You need admin permission to set prefix."
 			},
@@ -55,7 +55,7 @@
 			},
 			"resetPrefixCard": {
 				"title": "Reset successful.",
-				"description": "> Curent: **{defaultPrefix}**",
+				"description": "> Current: **{defaultPrefix}**",
 				"footer": "User use this command is {tag}."
 			},
 			"setPrefixCard": {
@@ -79,11 +79,11 @@
 			},
 			"languageOptions": {
 				"en": {
-					"lable": "En",
+					"label": "En",
 					"description": "Set language to English."
 				},
 				"vi": {
-					"lable": "Vi",
+					"label": "Vi",
 					"description": "Set language to Vietnam."
 				}
 			},
