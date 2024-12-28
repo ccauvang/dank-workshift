@@ -116,7 +116,7 @@ module.exports = {
                             tag: message.author.tag
                         }),
                     iconURL: message.author.avatarURL()
-                })
+                });
 
             await menuInteraction.update({ embeds: [setLanguageSuccessCard], components: [] });
 
