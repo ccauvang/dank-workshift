@@ -28,7 +28,7 @@
 		"uptime": {
 			"description": "Hiển thị thời gian uptime.",
 			"card": {
-				"title": "Đã uptime được.",
+				"title": "Uptime được.",
 				"description": "> {time} trước."
 			}
 		}
