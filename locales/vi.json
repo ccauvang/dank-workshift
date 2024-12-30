@@ -35,7 +35,7 @@
 	},
 	"setting": {
 		"setworkcatch": {
-			"description": "Cài đặt trạng thái tôi có bắt Dank Memer work message của bạn hay không.",
+			"description": "Cài đặt trạng thái bắt Dank Memer work message của bạn.",
 			"newUserCard": {
 				"title": "OMG bạn là người dùng mới damnnnnnn."
 			},
