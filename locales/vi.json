@@ -51,7 +51,7 @@
 				"description": "Bạn cần quyền admin để set prefix."
 			},
 			"setprefixModal": {
-				"title": "Prefix bạn muốn set cho server."
+				"title": "Prefix bạn muốn đặt cho server."
 			},
 			"resetPrefixCard": {
 				"title": "Reset prefix thành công.",
