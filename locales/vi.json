@@ -65,7 +65,7 @@
 					"footer": "Người dùng command này là: {tag}."
 				},
 				"success": {
-					"title": "Set successful.",
+					"title": "Set prefix thành công.",
 					"description": "> Hiện tại: **{prefix}**",
 					"footer": "Người dùng command này là: {tag}."
 				}
