@@ -9,7 +9,7 @@ module.exports = {
     aliases: ['swc', 'wc'],
     description: 'setting.setworkcatch.description',
     cooldown: 5,
-    category: __dirname.split('\\').pop(),
+    category: __dirname.split(/(\\|\/)/).pop(),
     usage: ['^setworkcatch', '^swc'],
     async run(message, lang) {
         setLocale(lang);

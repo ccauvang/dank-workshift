@@ -75,6 +75,7 @@
 			}
 		},
 		"setlanguage": {
+			"description": "Cài đặt ngôn ngữ bot sử dụng trong server này.",
 			"nonPermissionCard": {
 				"title": "Bạn không có đủ quyền hạn.",
 				"description": "Bạn cần quyền admin để set language."

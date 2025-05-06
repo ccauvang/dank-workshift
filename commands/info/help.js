@@ -8,7 +8,7 @@ module.exports = {
     aliases: ['h'],
     description: 'info.help.description',
     cooldown: 5,
-    category: __dirname.split('\\').pop(),
+    category: __dirname.split(/(\\|\/)/).pop(),
     usage: ['^help', '^h'],
     async run(message, lang, args) {
         setLocale(lang);

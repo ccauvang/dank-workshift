@@ -10,7 +10,7 @@ module.exports = {
     aliases: ['setlocale', 'lang', 'setlang'],
     description: 'setting.setlanguage.description',
     cooldown: 10,
-    category: __dirname.split('\\').pop(),
+    category: __dirname.split(/(\\|\/)/).pop(),
     usage: ['^setlanguage', '^setlocal'],
     async run(message, lang) {
         setLocale(lang);
