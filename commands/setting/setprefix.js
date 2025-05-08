@@ -104,7 +104,7 @@ module.exports = {
                 if (canAddAwaitModal) {
                     canAddAwaitModal = false;
 
-                    await buttonInteraction.awaitModalSubmit({ filter, time: 120 * 1e3 })
+                    await buttonInteraction.awaitModalSubmit({ filter, time: 140 * 1e3 })
                         .then(async (modalInteraction) => {
                             if (endCollector == false) {
                                 const prefixReceive = await modalInteraction.fields.getTextInputValue('setPreInp');
@@ -123,7 +123,7 @@ module.exports = {
 
                                 collector.resetTimer({ time: 60 * 1e3 });
                             } else {
-                                buttonInteraction.reply({ content: 'yooo what do you find bro.', flags: MessageFlags.Ephemeral })
+                                modalInteraction.reply({ content: 'Yooo what do you find bro.', flags: MessageFlags.Ephemeral })
                             };
                         })
                         .catch(err => {
@@ -153,9 +153,10 @@ module.exports = {
 
         collector.on('end', async () => {
             endCollector = true;
+
             setTimeout(() => {
                 setPrefixMessage.delete();
-            }, 3 * 1e3)
+            }, 5 * 1e3)
         });
 
     }
