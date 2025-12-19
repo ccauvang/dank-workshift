@@ -10,7 +10,7 @@ module.exports = {
     aliases: ['prefix', 'pre'],
     description: 'setting.setprefix.description',
     cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(),
+    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
     usage: ['^setprefix'],
     async run(message, lang) {
 

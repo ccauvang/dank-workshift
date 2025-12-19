@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['up', 'live'],
     description: 'info.uptime.description',
     cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(),
+    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
     usage: ['^uptime'],
     async run(message, lang) {
         setLocale(lang);

@@ -10,25 +10,25 @@ require('dotenv').config();
 module.exports = async (client, message) => {
   if (message.author.id == client.user.id) return;
   if (!message.guild) return;
-  if (message.author.id == '270904126974590976') {
+  if (message.author.id == process.env.IDBOTDISCORD) {
     workProcess(message);
   };
   if (message.bot) return;
 
 
-  let serverPrefix = await db.get(`Guild._${message.guild.id}.prefix`);
+  var serverPrefix = await db.get(`Guild._${message.guild.id}.prefix`);
   if (serverPrefix == null) {
     serverPrefix = process.env.PREFIX;
   };
 
-  let lang = await db.get(`Guild._${message.guild.id}.localLanguage`);
+  var lang = await db.get(`Guild._${message.guild.id}.localLanguage`);
   if (lang == null) {
     lang = process.env.LANGUAGE;
   };
 
   setLocale(lang);
 
-  let userStatus = await db.get(`User._${message.author.id}.catchDankMsg`);
+  var userStatus = await db.get(`User._${message.author.id}.catchDankMsg`);
 
   userStatus = (userStatus == 0 || userStatus == null) ? ie.__('common.Off') : ie.__('common.On');
 
@@ -119,9 +119,5 @@ module.exports = async (client, message) => {
     console.log(error);
     return message.channel.send({ embeds: [errorEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
   }
-
-  // await message.channel.send({ content: `${desMessage.data.description}` });
-  // await message.channel.send({ embeds: [desMessage] });
-
 
 };
