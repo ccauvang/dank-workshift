@@ -26,10 +26,8 @@ async function workProcessMgs(message) {
             if (userCatchStatus == null || userCatchStatus == 0) return;
             const embedOfMessage = message.embeds[0];
             if (embedOfMessage.toString().match('the ball!') != null) return;
-            // const msgRootInteract = message.interaction;
 
             console.log(embedOfMessage);
-            // console.log(msgRootInteract);
 
 
             await message.react('1313857088245731359');
