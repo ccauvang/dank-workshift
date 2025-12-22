@@ -25,7 +25,6 @@ async function workProcessMgs(message) {
             const userCatchStatus = await db.get(`User._${IDUser}.catchDankMsg`);
             if (userCatchStatus == null || userCatchStatus == 0) return;
             const embedOfMessage = message.embeds[0];
-            console.log(embedOfMessage.data.description.match('the ball!'));
             if (embedOfMessage.data.description.match('the ball!') != null) return;
 
             console.log(embedOfMessage);
@@ -49,7 +48,6 @@ async function workProcessMgs(message) {
 
         await getInfoUserAndSendTheHelpMessage(message, userID, commandName);
     } else if (message.interaction == null && message.interactionMetadata == null) {
-        console.log(message);
         if (message.reference == null) return;
         const repliedMessage = await message.channel.messages.fetch(message.reference.messageId);
         if (repliedMessage.content == '') return;
