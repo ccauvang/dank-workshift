@@ -46,7 +46,7 @@
 		},
 		"setprefix": {
 			"description": "Cài prefix cho server của bạn.",
-			"nonPermission": {
+			"nonPermissionCard": {
 				"title": "Bạn không có đủ quyền hạn để set prefix.",
 				"description": "Bạn cần quyền admin để set prefix."
 			},

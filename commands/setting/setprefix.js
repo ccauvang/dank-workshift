@@ -16,13 +16,13 @@ module.exports = {
 
         setLocale(lang);
 
-        const nonPermission = new EmbedBuilder()
-            .setTitle(ie.__(`${this.category}.${this.name}.nonPermission.title`))
-            .setDescription(ie.__(`${this.category}.${this.name}.nonPermission.description`))
+        const nonPermissionCard = new EmbedBuilder()
+            .setTitle(ie.__(`${this.category}.${this.name}.nonPermissionCard.title`))
+            .setDescription(ie.__(`${this.category}.${this.name}.nonPermissionCard.description`))
             .setColor(0xFF0000);
 
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            message.channel.send({ embeds: [nonPermission] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
+            message.channel.send({ embeds: [nonPermissionCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
             return;
         };
 
@@ -95,7 +95,7 @@ module.exports = {
             };
 
             if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-                menuInteraction.reply({ embeds: [nonPermissionCard], flags: MessageFlags.Ephemeral });
+                buttonInteraction.reply({ embeds: [nonPermissionCard], flags: MessageFlags.Ephemeral });
                 return;
             };
 
@@ -127,7 +127,7 @@ module.exports = {
                             };
                         })
                         .catch(err => {
-                            // console.log(err);
+                            console.log(err);
                             collector.stop();
                         });
                 };

@@ -46,7 +46,7 @@ module.exports = {
 
         const localOfServer = await db.get(`Guild._${message.guild.id}.localLanguage`) || process.env.LANGUAGE;
 
-        const setlanguageMenu = new StringSelectMenuBuilder()
+        const setLanguageMenu = new StringSelectMenuBuilder()
             .setCustomId('setLangMenu')
             .setMaxValues(1)
             .setMinValues(1)
@@ -60,12 +60,12 @@ module.exports = {
                     .setDescription(locale.description)
                     .setValue(locale.value);
 
-                setlanguageMenu.addOptions(setLanguageMenuOption);
+                setLanguageMenu.addOptions(setLanguageMenuOption);
             };
         });
 
         const setLanguageActionRow = new ActionRowBuilder()
-            .addComponents(setlanguageMenu);
+            .addComponents(setLanguageMenu);
 
         const setLanguageCard = new EmbedBuilder()
             .setTitle(ie.__(`${this.category}.${this.name}.setLanguageCard.title`))
@@ -86,7 +86,6 @@ module.exports = {
         };
 
         const collector = await setLanguageMessage.createMessageComponentCollector({
-            // filter,
             componentType: ComponentType.StringSelect,
             time: 120 * 1e3,
         });
