@@ -27,8 +27,7 @@ async function workProcessMgs(message) {
             const embedOfMessage = message.embeds[0];
             if (embedOfMessage.data.description.match('the ball!') != null) return;
 
-            console.log(embedOfMessage);
-
+            // console.log(embedOfMessage);
 
             await message.react('1313857088245731359');
             await message.channel.send({ embeds: [embedOfMessage] }).then(msg => {
@@ -40,7 +39,7 @@ async function workProcessMgs(message) {
                 };
             });
         };
-    }
+    };
 
     if (message.interaction != null) {
         const userID = message.interactionMetadata.user.id;
