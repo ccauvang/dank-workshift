@@ -1,6 +1,7 @@
-const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, MessageFlags, TextInputStyle, ComponentType } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ContainerBuilder, TextDisplayBuilder, SeparatorBuilder } = require('@discordjs/builders');
+const { PermissionsBitField, MessageFlags, ComponentType } = require('discord.js');
 const { setLocale, ie } = require('../../util/i18n');
+const deleteMessageSafe = require('../../util/deleteMessage');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: "database/main.sqlite" });
 require('dotenv').config();
@@ -22,9 +23,7 @@ module.exports = {
 
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
             message.channel.send({ embeds: [nonPermissionCard] }).then(msg => {
-                setTimeout(() => {
-                    msg.delete().catch(console.error);
-                }, 15 * 1e3);
+                deleteMessageSafe(msg, 15 * 1e3);
             });
             return;
         };
@@ -67,19 +66,25 @@ module.exports = {
         const setLanguageActionRow = new ActionRowBuilder()
             .addComponents(setLanguageMenu);
 
-        const setLanguageCard = new EmbedBuilder()
-            .setTitle(ie.__(`${this.category}.${this.name}.setLanguageCard.title`))
-            .setDescription(ie.__mf(`${this.category}.${this.name}.setLanguageCard.description`, { currentLanguage: localOfServer }))
-            .setColor(0x00FF80)
-            .setFooter({
-                text: ie.__mf(`${this.category}.${this.name}.setLanguageCard.footer`, {
-                    tag: message.author.tag
-                }),
-                iconURL: message.author.avatarURL()
-            })
-            .setTimestamp();
+        const buildLanguageContainer = (titleKey, descKey, descData, includeMenu = true) => {
+            const container = new ContainerBuilder()
+                .setAccentColor(0x00FF80)
+                .addTextDisplayComponents(
+                    new TextDisplayBuilder().setContent(
+                        `**${ie.__(`${this.category}.${this.name}.${titleKey}`)}**\n` +
+                        ie.__mf(`${this.category}.${this.name}.${descKey}`, descData)
+                    )
+                );
+            if (includeMenu) {
+                container.addSeparatorComponents(new SeparatorBuilder()).addActionRowComponents(setLanguageActionRow);
+            }
+            return container;
+        };
 
-        const setLanguageMessage = await message.channel.send({ embeds: [setLanguageCard], components: [setLanguageActionRow] });
+        const setLanguageMessage = await message.channel.send({
+            components: [buildLanguageContainer('setLanguageCard.title', 'setLanguageCard.description', { currentLanguage: localOfServer })],
+            flags: MessageFlags.IsComponentsV2
+        });
 
         function filler(i) {
             return message.author.id == i.user.id;
@@ -105,28 +110,17 @@ module.exports = {
 
             await db.set(`Guild._${message.guildId}.localLanguage`, languageUserChoose);
 
-            const setLanguageSuccessCard = new EmbedBuilder()
-                .setTitle(ie.__(`${this.category}.${this.name}.setLanguageSuccessCard.title`))
-                .setDescription(ie.__mf(`${this.category}.${this.name}.setLanguageSuccessCard.description`, { setLang: languageUserChoose }))
-                .setColor(0x00FF80)
-                .setFooter({
-                    text: ie.__mf(`${this.category}.${this.name}.setLanguageSuccessCard.footer`,
-                        {
-                            tag: message.author.tag
-                        }),
-                    iconURL: message.author.avatarURL()
-                });
-
-            await menuInteraction.update({ embeds: [setLanguageSuccessCard], components: [] });
+            await menuInteraction.update({
+                components: [buildLanguageContainer('setLanguageSuccessCard.title', 'setLanguageSuccessCard.description', { setLang: languageUserChoose }, false)],
+                flags: MessageFlags.IsComponentsV2
+            });
 
             collector.resetTimer({ time: 60 * 1e3 });
             return;
         });
 
         collector.on('end', () => {
-            setTimeout(() => {
-                setLanguageMessage.delete().catch(console.error);
-            }, 2 * 1e3)
+            deleteMessageSafe(setLanguageMessage, 5 * 1e3);
         });
 
     }

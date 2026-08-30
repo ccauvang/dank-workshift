@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('@discordjs/builders');
 const { setLocale, ie } = require('../../util/i18n');
 const { timeFormat } = require('../../util/timeFormat')
+const deleteMessageSafe = require('../../util/deleteMessage');
 
 module.exports = {
     name: 'uptime',
@@ -21,9 +22,7 @@ module.exports = {
             .setTimestamp();
 
         message.channel.send({ embeds: [uptimeCard] }).then(msg => {
-            setTimeout(() => {
-                msg.delete().catch(console.error);
-            }, 30 * 1e3);
+            deleteMessageSafe(msg, 30 * 1e3);
         });
     }
 };

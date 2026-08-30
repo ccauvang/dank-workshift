@@ -1,10 +1,11 @@
 const { EmbedBuilder } = require('@discordjs/builders');
 const { Collection } = require('discord.js');
 const workProcess = require('../workprocess/processWorkMgs');
-const { setLocale, ie } = require('../util/i18n');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: 'database/main.sqlite' });
+const { setLocale, ie } = require('../util/i18n');
 const { timeFormat } = require('../util/timeFormat');
+const deleteMessageSafe = require('../util/deleteMessage');
 require('dotenv').config();
 
 module.exports = async (client, message) => {
@@ -51,12 +52,7 @@ module.exports = async (client, message) => {
   const commandName = args.shift().toLowerCase();
 
   if (commandName.length == 0 && matchedPrefix.includes(client.user.id)) {
-    setTimeout(() =>
-      message.delete().catch(error => {
-        if (error.code == 10008) {
-          console.error(`Error delete when they ping me.`);
-        }
-      }), 2000);
+    deleteMessageSafe(message, 2000);
 
     const tagResponseCard = new EmbedBuilder()
       .setTitle(ie.__(`tagResponseCard.title`))
@@ -64,7 +60,7 @@ module.exports = async (client, message) => {
       .setColor(0x00FF80)
       .setFooter({ text: ie.__(`tagResponseCard.footer`) })
       .setTimestamp();
-    return message.channel.send({ embeds: [tagResponseCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 120 * 1e3));
+    return message.channel.send({ embeds: [tagResponseCard] }).then(msg => deleteMessageSafe(msg, 120 * 1e3));
   };
 
   const command =
@@ -87,15 +83,13 @@ module.exports = async (client, message) => {
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1e3;
 
-      setTimeout(() => {
-        message.delete().catch(console.error);
-      }, 2 * 1e3);
+      deleteMessageSafe(message, 2 * 1e3);
 
       const cooldownEmbed = new EmbedBuilder()
         .setTitle(ie.__mf('common.cooldownMessage', { cooldownTime: timeFormat(timeLeft.toFixed(0), lang) }))
         .setColor(0xFF0000);
 
-      return message.channel.send({ embeds: [cooldownEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
+      return message.channel.send({ embeds: [cooldownEmbed] }).then(msg => deleteMessageSafe(msg, 15 * 1e3));
     }
   } else {
     timestamps.set(message.author.id, now);
@@ -105,19 +99,14 @@ module.exports = async (client, message) => {
   };
 
   try {
-    setTimeout(() =>
-      message.delete().catch(error => {
-        if (error.code == 10008) {
-          console.error(`Error delete \n User usage: ${message.author.id} \n Command: ${command.name}.`);
-        }
-      }), 2500);
-    command.run(message, lang, args);
+    deleteMessageSafe(message, 2500, `User usage: ${message.author.id} \n Command: ${command.name}.`);
+    await command.run(message, lang, args);
   } catch (error) {
     const errorEmbed = new EmbedBuilder()
       .setTitle(ie.__('common.errorCommand'))
       .setColor(0xFF0000);
     console.log(error);
-    return message.channel.send({ embeds: [errorEmbed] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
+    return message.channel.send({ embeds: [errorEmbed] }).then(msg => deleteMessageSafe(msg, 15 * 1e3));
   }
 
 };

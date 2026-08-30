@@ -1,6 +1,7 @@
-const { EmbedBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder, } = require('@discordjs/builders');
+const { EmbedBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, LabelBuilder, ActionRowBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, MessageFlags, TextInputStyle, ComponentType } = require('discord.js');
 const { setLocale, ie } = require('../../util/i18n');
+const deleteMessageSafe = require('../../util/deleteMessage');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: "database/main.sqlite" });
 require('dotenv').config();
@@ -22,7 +23,7 @@ module.exports = {
             .setColor(0xFF0000);
 
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            message.channel.send({ embeds: [nonPermissionCard] }).then(msg => setTimeout(() => msg.delete().catch(console.error), 15 * 1e3));
+            message.channel.send({ embeds: [nonPermissionCard] }).then(msg => deleteMessageSafe(msg, 15 * 1e3));
             return;
         };
 
@@ -49,19 +50,20 @@ module.exports = {
 
         const setPrefixInput = new TextInputBuilder()
             .setCustomId('setPreInp')
-            .setLabel('Prefix:')
             .setPlaceholder('ex: #.')
             .setStyle(TextInputStyle.Short)
             .setMaxLength(3)
             .setMinLength(1)
             .setRequired(true);
 
+        const setPrefixLabel = new LabelBuilder()
+            .setLabel('Prefix:')
+            .setTextInputComponent(setPrefixInput);
+
         const setPrefixModal = new ModalBuilder()
             .setCustomId(`setPrefixModal_${message.author.id}`)
             .setTitle(ie.__(`${this.category}.${this.name}.setPrefixModal.title`))
-            .setComponents(
-                new ActionRowBuilder().addComponents(setPrefixInput)
-            );
+            .addLabelComponents(setPrefixLabel);
 
         // await db.set(`Guild._${message.guild.id}.prefix`, prefixWanToSet);
         const setPrefixCard = new EmbedBuilder()
@@ -78,7 +80,6 @@ module.exports = {
         };
 
         const collector = setPrefixMessage.createMessageComponentCollector({
-            // filter,
             componentType: ComponentType.Button,
             time: 120 * 1e3
         });
@@ -106,6 +107,7 @@ module.exports = {
 
                     await buttonInteraction.awaitModalSubmit({ filter, time: 140 * 1e3 })
                         .then(async (modalInteraction) => {
+                            canAddAwaitModal = true;
                             if (endCollector == false) {
                                 const prefixReceive = await modalInteraction.fields.getTextInputValue('setPreInp');
                                 await db.set(`Guild._${modalInteraction.guildId}.prefix`, prefixReceive);
@@ -127,6 +129,7 @@ module.exports = {
                             };
                         })
                         .catch(err => {
+                            canAddAwaitModal = true;
                             console.log(err);
                             collector.stop();
                         });
@@ -153,10 +156,7 @@ module.exports = {
 
         collector.on('end', async () => {
             endCollector = true;
-
-            setTimeout(() => {
-                setPrefixMessage.delete();
-            }, 5 * 1e3)
+            deleteMessageSafe(setPrefixMessage, 5 * 1e3);
         });
 
     }

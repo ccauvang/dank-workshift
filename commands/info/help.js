@@ -1,7 +1,8 @@
 const { EmbedBuilder } = require('@discordjs/builders');
-const { setLocale, ie } = require('../../util/i18n');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: 'database/main.sqlite' });
+const { setLocale, ie } = require('../../util/i18n');
+const deleteMessageSafe = require('../../util/deleteMessage');
 
 module.exports = {
     name: 'help',
@@ -36,9 +37,7 @@ module.exports = {
                 });
             };
             message.channel.send({ embeds: [helpCard] }).then(msg => {
-                setTimeout(() => {
-                    msg.delete().catch(console.error);
-                }, 90 * 1e3);
+                deleteMessageSafe(msg, 90 * 1e3);
             });
             return;
         };
@@ -75,9 +74,7 @@ module.exports = {
                 .setTimestamp();
 
             message.channel.send({ embeds: [helpCmdCard] }).then(msg => {
-                setTimeout(() => {
-                    msg.delete().catch(console.error);
-                }, 60 * 1e3);
+                deleteMessageSafe(msg, 60 * 1e3);
             });
             return;
         };

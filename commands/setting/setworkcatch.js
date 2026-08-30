@@ -1,6 +1,7 @@
-const { EmbedBuilder, ButtonBuilder, ActionRowBuilder } = require('@discordjs/builders');
+const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ContainerBuilder, TextDisplayBuilder, SeparatorBuilder } = require('@discordjs/builders');
 const { MessageFlags, ComponentType, ButtonStyle } = require('discord.js');
 const { setLocale, ie } = require('../../util/i18n');
+const deleteMessageSafe = require('../../util/deleteMessage');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: 'database/main.sqlite' });
 
@@ -39,15 +40,23 @@ module.exports = {
         const setWCActionRow = new ActionRowBuilder()
             .setComponents(setWCButtonDisable, setWCButtonEnable);
 
-        const settingCard = new EmbedBuilder()
-            .setTitle(ie.__(`${this.category}.${this.name}.settingCard.title`))
-            .setDescription(ie.__mf(`${this.category}.${this.name}.settingCard.description`, {
-                status: userStatus == 0 || userStatus == null ? ie.__('common.Off') : ie.__('common.On')
-            }))
-            .setColor(0x00FF80)
-            .setTimestamp();
+        const buildSettingContainer = (statusKey) => {
+            return new ContainerBuilder()
+                .setAccentColor(0x00FF80)
+                .addTextDisplayComponents(
+                    new TextDisplayBuilder().setContent(
+                        `**${ie.__(`${this.category}.${this.name}.settingCard.title`)}**\n` +
+                        ie.__mf(`${this.category}.${this.name}.settingCard.description`, { status: ie.__(statusKey) })
+                    )
+                )
+                .addSeparatorComponents(new SeparatorBuilder())
+                .addActionRowComponents(setWCActionRow);
+        };
 
-        const setWorkCatchMessage = await message.channel.send({ embeds: [settingCard], components: [setWCActionRow] });
+        const setWorkCatchMessage = await message.channel.send({
+            components: [buildSettingContainer(userStatus == 0 || userStatus == null ? 'common.Off' : 'common.On')],
+            flags: MessageFlags.IsComponentsV2
+        });
 
         function filter(i) {
             return message.author.id == i.user.id;
@@ -74,15 +83,13 @@ module.exports = {
                 await db.set(`User._${buttonInteraction.user.id}.catchDankMsg`, 1);
                 setWCButtonEnable.setDisabled(true);
                 setWCButtonDisable.setDisabled(false);
-                settingCard.setDescription(ie.__mf(`${this.category}.${this.name}.settingCard.description`, { status: ie.__('common.On') }));
-                settingCard.setTimestamp();
 
                 if (userStatus == null && checkNull) {
                     checkNull = false;
-                    await buttonInteraction.reply({ embeds: [newUserCard], flags: MessageFlags.Ephemeral })
-                    await setWorkCatchMessage.edit({ embeds: [settingCard], components: [setWCActionRow] });
+                    await buttonInteraction.reply({ embeds: [newUserCard], flags: MessageFlags.Ephemeral });
+                    await setWorkCatchMessage.edit({ components: [buildSettingContainer('common.On')], flags: MessageFlags.IsComponentsV2 });
                 } else {
-                    await buttonInteraction.update({ embeds: [settingCard], components: [setWCActionRow] });
+                    await buttonInteraction.update({ components: [buildSettingContainer('common.On')], flags: MessageFlags.IsComponentsV2 });
                 };
 
                 collector.resetTimer({ time: 60 * 1e3 });
@@ -92,10 +99,8 @@ module.exports = {
                 await db.set(`User._${buttonInteraction.user.id}.catchDankMsg`, 0);
                 setWCButtonDisable.setDisabled(true);
                 setWCButtonEnable.setDisabled(false);
-                settingCard.setDescription(ie.__mf(`${this.category}.${this.name}.settingCard.description`, { status: ie.__('common.Off') }));
-                settingCard.setTimestamp();
 
-                await buttonInteraction.update({ embeds: [settingCard], components: [setWCActionRow] });
+                await buttonInteraction.update({ components: [buildSettingContainer('common.Off')], flags: MessageFlags.IsComponentsV2 });
 
                 collector.resetTimer({ time: 60 * 1e3 });
             };
@@ -103,9 +108,7 @@ module.exports = {
         });
 
         collector.on('end', () => {
-            setTimeout(() => {
-                setWorkCatchMessage.delete().catch(console.error);
-            }, 5 * 1e3);
+            deleteMessageSafe(setWorkCatchMessage, 5 * 1e3);
         });
 
     }
