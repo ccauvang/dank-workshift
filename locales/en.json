@@ -131,7 +131,7 @@
 		"seconds": "seconds"
 	},
 	"common": {
-		"cooldownMessage": "Hey chill bro \n wait {cooldownTime}.",
+		"cooldownMessage": "Hey chill bro \nWait {cooldownTime}.",
 		"errorCommand": "Error command.",
 		"isntYour": "This isn't your bro!",
 		"On": "<:CY:1316032918665035897> Enable",

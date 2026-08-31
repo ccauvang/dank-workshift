@@ -134,7 +134,7 @@
 		"seconds": "giây"
 	},
 	"common": {
-		"cooldownMessage": "Hey chill bro \n Đợi {cooldownTime}.",
+		"cooldownMessage": "Hey chill bro \nĐợi {cooldownTime}.",
 		"errorCommand": "Error command.",
 		"On": "<:CY:1316032918665035897> Bật",
 		"Off": "<:CX:1316032934230360175> Tắt",
