@@ -7,6 +7,10 @@ package-lock.json
 # test
 test*
 
+# debug dump file
+debug-dump/
+util/dumpMessage.js
+
 # log
 log.t
 log.txt

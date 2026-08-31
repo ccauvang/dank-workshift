@@ -2,6 +2,7 @@ const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: "database/main.sqlite" });
 const chalk = require('chalk');
 const moment = require('moment');
+const { startFarmPoll } = require('../workprocess/processFarm');
 
 module.exports = async (client) => {
     const now = moment().format('hh:mm:ss | DD/MMM/YYYY');
@@ -9,6 +10,7 @@ module.exports = async (client) => {
     console.log(chalk.cyanBright(now))
 
     await db.set(`botInfo.server`, client.guilds.cache.size);
+    startFarmPoll(client);
 
     const arrMessage = ['d.h', 'My default prefix is: d.', 'Tag me to know your prefix server and your Dank Memer work catch status'];
     const arrStatus = ['online', 'dnd', 'idle'];

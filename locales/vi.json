@@ -1,4 +1,20 @@
 {
+	"farm": {
+		"farmremind": {
+			"description": "Nhắc bạn khi cây trồng sẵn sàng thu hoạch.",
+			"newUserCard": {
+				"title": "Hello bro, nông dân mới sao ?"
+			},
+			"settingCard": {
+				"title": "Nhắc khi cây trồng sẵn sàng thu hoạch.",
+				"description": "> Hiện tại: **{status}**"
+			},
+			"remindCard": {
+				"title": "Yo thu hoạch cái cây này đi!",
+				"description": "{emoji} **{seedName}**"
+			}
+		}
+	},
 	"info": {
 		"help": {
 			"description": "Hiển thị thông tin command.",

@@ -1,4 +1,20 @@
 {
+	"farm": {
+		"farmremind": {
+			"description": "Remind you when your farm plant fully grow, ready to harvest.",
+			"newUserCard": {
+				"title": "Hello new farmer."
+			},
+			"settingCard": {
+				"title": "Remind when your plant ready to harvest.",
+				"description": "> Current: **{status}**"
+			},
+			"remindCard": {
+				"title": "Your plot is ready to harvest!",
+				"description": "{emoji} **{seedName}**"
+			}
+		}
+	},
 	"info": {
 		"help": {
 			"description": "Show some info to help you.",
