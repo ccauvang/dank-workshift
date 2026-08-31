@@ -3,7 +3,6 @@ const { QuickDB } = require("quick.db");
 const db = new QuickDB({ filePath: "database/main.sqlite" });
 const { setLocale, ie } = require("../util/i18n");
 const deleteMessageSafe = require("../util/deleteMessage");
-const dumpMessage = require('../util/dumpMessage');
 require("dotenv").config();
 
 const SEED_DATA = {

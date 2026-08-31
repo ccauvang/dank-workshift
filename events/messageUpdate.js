@@ -1,5 +1,4 @@
 const { processFarm } = require('../workprocess/processFarm');
-const dumpMessage = require('../util/dumpMessage');
 require('dotenv').config();
 
 module.exports = async (client, oldMessage, newMessage) => {
