@@ -65,11 +65,6 @@ const SEED_DATA = {
 // match: <:emojiName:emojiId> Seed Display Name ready|wilted <t:unixTs:R>
 const PLOT_LINE_REGEX = /<:(\w+):(\d+)>\s*(.+?)\s+(ready|wilted)\s+<t:(\d+):R>/;
 
-/**
- * Recursively walk message.components tree, pull out all TextDisplay (type 10) content strings.
- * @param {Array} components
- * @returns {Array<string>}
- */
 function extractTextContents(components) {
     let texts = [];
     if (!Array.isArray(components)) return texts;
@@ -83,10 +78,6 @@ function extractTextContents(components) {
     return texts;
 }
 
-/**
- * Parse farm-manage message from Dank bot, save per-plot harvest-ready time in db.
- * @param {object} message - The message of the Dank bot.
- */
 async function processFarm(message) {
     if (!message) return;
     if (message.author.id != process.env.IDBOTDISCORD) return;
@@ -127,82 +118,95 @@ async function processFarm(message) {
 
     const lines = texts[0].split("\n").filter((line) => line.trim().length > 0);
 
+    const farmPath = `User._${userID}.farm`;
+    const existingFarm = (await db.get(farmPath)) || { channelId: null };
+    const farm = { channelId: existingFarm.channelId };
 
     let plotIndex = -1;
     for (const line of lines) {
-        if (line.startsWith("###")) continue; // header line (farm name), skip, don't count as plot
+        if (line.startsWith("###")) continue;
         plotIndex++;
 
-        if (line.includes("Seems pretty empty")) {
-            const plotKey = `User._${userID}.farm.plot-${plotIndex}`;
-            const existing = await db.get(plotKey);
-            if (existing) await db.delete(plotKey);
-            continue;
-        }
+        if (plotIndex > 8) continue; // cap 0-8, 9 plot max
 
         const match = line.match(PLOT_LINE_REGEX);
-        if (!match) continue;
+        const status = match ? match[4] : null;
 
-        const [, , emojiId, , status, tsRaw] = match;
-        const plotKey = `User._${userID}.farm.plot-${plotIndex}`;
+        if (status != "ready") continue; // growing/wilted/empty/no-match - not tracked
 
-        if (status == "wilted") {
-            // TODO: die-time cleanup branch, revisit once wilt-grace-per-seed data confirmed
-            /*
-                  const existing = await db.get(plotKey);
-                  if (existing) await db.delete(plotKey);
-                  */
-            continue;
+        const [, , emojiId, , , tsRaw] = match;
+        const seedInfo = SEED_DATA[emojiId];
+        if (!seedInfo) continue; // unknown seed, skip
+
+        const harvestAt = parseInt(tsRaw);
+        const key = `${harvestAt}`;
+
+        if (!farm[seedInfo.key]) farm[seedInfo.key] = {};
+        if (!farm[seedInfo.key][key]) {
+            farm[seedInfo.key][key] = { harvestAt, count: 0 };
         }
+        farm[seedInfo.key][key].count++;
+    }
 
-        if (status == "ready") {
-            const seedInfo = SEED_DATA[emojiId];
-            if (!seedInfo) continue; // unknown seed, can't identify, skip
+    if (farm.channelId != message.channelId) {
+        farm.channelId = message.channelId;
+    }
 
-            await db.set(plotKey, {
-                seedKey: seedInfo.key,
-                harvestAt: parseInt(tsRaw),
-                channelId: message.channelId
-            });
+    // skip write if unchanged (avoid churn on identical re-parse)
+    if (JSON.stringify(existingFarm) != JSON.stringify(farm)) {
+        await db.set(farmPath, farm);
+
+        const inIndex = await db.get(`FarmRemind.${userID}`);
+        if (!inIndex) {
+            await db.set(`FarmRemind.${userID}`, true);
         }
     }
 }
 
-/**
- * Scan db for any plot past harvestAt, send remind msg, delete entry after send.
- * @param {object} client - Discord client.
- */
 async function checkFarmRemind(client) {
-    const allUsers = (await db.get("User")) || {};
+    const farmIndex = (await db.get("FarmRemind")) || {};
+    const userIDs = Object.keys(farmIndex);
     const now = Math.floor(Date.now() / 1000);
 
-    for (const userKey of Object.keys(allUsers)) {
-        const userData = allUsers[userKey];
-        if (!userData || !userData.farm) continue;
+    for (const userID of userIDs) {
+        const farm = await db.get(`User._${userID}.farm`);
+        if (!farm) {
+            await db.delete(`FarmRemind.${userID}`); // stale index entry, farm gone, purge
+            continue;
+        }
 
-        const userID = userKey.replace(/^_/, "");
+        const channelId = farm.channelId;
         const readyPlots = [];
         const dbPaths = [];
-        let channelId = null;
+        const affectedSeedKeys = [];
 
-        for (const plotKey of Object.keys(userData.farm)) {
-            const plot = userData.farm[plotKey];
-            if (!plot || plot.harvestAt == null) continue;
-            if (now < plot.harvestAt) continue; // not ready yet
+        for (const seedKey of Object.keys(farm)) {
+            if (seedKey == "channelId") continue;
 
-            const dbPath = `User._${userID}.farm.${plotKey}`;
-            const seedInfo = Object.values(SEED_DATA).find(
-                (s) => s.key == plot.seedKey
-            );
+            const seedInfo = Object.values(SEED_DATA).find((s) => s.key == seedKey);
+            const seedGroup = farm[seedKey];
+            let readyInGroup = 0;
 
             if (!seedInfo) {
-                await db.delete(dbPath); // junk/unknown seed data, safe purge regardless
+                await db.delete(`User._${userID}.farm.${seedKey}`);
                 continue;
             }
+            const timeKeys = Object.keys(seedGroup);
 
-            readyPlots.push(seedInfo);
-            dbPaths.push(dbPath);
-            channelId = plot.channelId;
+            for (const timeKey of timeKeys) {
+                const entry = seedGroup[timeKey];
+                if (!entry || entry.harvestAt == null) continue;
+                if (now < entry.harvestAt) continue;
+
+                readyPlots.push({ ...seedInfo, count: entry.count });
+                dbPaths.push(`User._${userID}.farm.${seedKey}.${timeKey}`);
+                readyInGroup++
+            }
+
+            if (readyInGroup > 0) {
+                affectedSeedKeys.push(seedKey);
+            }
+
         }
 
         if (readyPlots.length < 1) continue;
@@ -221,7 +225,8 @@ async function checkFarmRemind(client) {
                 .map((s) =>
                     ie.__mf("farm.farmremind.remindCard.description", {
                         emoji: s.emoji,
-                        seedName: s.displayName
+                        seedName: s.displayName,
+                        count: s.count
                     })
                 )
                 .join("\n");
@@ -244,6 +249,19 @@ async function checkFarmRemind(client) {
             for (const dbPath of dbPaths) {
                 await db.delete(dbPath);
             }
+
+            for (const seedKey of affectedSeedKeys) {
+                const group = await db.get(`User._${userID}.farm.${seedKey}`);
+                if (!group || Object.keys(group).length < 1) {
+                    await db.delete(`User._${userID}.farm.${seedKey}`);
+                }
+            }
+
+            const remaining = await db.get(`User._${userID}.farm`);
+            const hasAnyPlot = remaining && Object.keys(remaining).some((k) => k != "channelId");
+            if (!hasAnyPlot) {
+                await db.delete(`FarmRemind.${userID}`);
+            }
         } catch (error) {
             console.error(`Error sending farm remind: User ${userID}.`, error);
             // send fail, leave db entries untouched, retry next tick
@@ -251,12 +269,7 @@ async function checkFarmRemind(client) {
     }
 }
 
-/**
- * Start recurring poll for farm harvest remind.
- * @param {object} client - Discord client.
- * @param {number} [intervalMs=30000] - Poll interval in ms.
- */
-function startFarmPoll(client, intervalMs = 10 * 1e3) {
+function startFarmPoll(client, intervalMs = 20 * 1e3) {
     setInterval(() => {
         checkFarmRemind(client).catch(console.error);
     }, intervalMs);

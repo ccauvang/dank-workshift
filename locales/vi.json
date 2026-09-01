@@ -11,7 +11,7 @@
 			},
 			"remindCard": {
 				"title": "Yo thu hoạch cái cây này đi!",
-				"description": "{emoji} **{seedName}**"
+				"description": "**{count}** {emoji} {seedName}"
 			}
 		}
 	},

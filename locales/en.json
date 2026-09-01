@@ -11,7 +11,7 @@
 			},
 			"remindCard": {
 				"title": "Your plot is ready to harvest!",
-				"description": "{emoji} **{seedName}**"
+				"description": "**{count}** {emoji} {seedName}"
 			}
 		}
 	},
