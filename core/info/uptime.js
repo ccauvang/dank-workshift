@@ -1,27 +1,22 @@
 const { EmbedBuilder } = require('@discordjs/builders');
 const { setLocale, ie } = require('../../util/i18n');
-const { timeFormat } = require('../../util/timeFormat')
+const { timeFormat } = require('../../util/timeFormat');
 const deleteMessageSafe = require('../../util/deleteMessage');
 
 module.exports = {
-    name: 'uptime',
-    aliases: ['up', 'live'],
-    description: 'info.uptime.description',
-    cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
-    usage: ['^uptime'],
-    async run(message, lang) {
+    async run(ctx, lang) {
         setLocale(lang);
 
         const timeRaw = Math.floor(process.uptime());
         const timeAfterFormat = timeFormat(timeRaw, lang);
+
         const uptimeCard = new EmbedBuilder()
             .setTitle(ie.__('info.uptime.card.title'))
             .setDescription(ie.__mf(`${this.category}.${this.name}.card.description`, { time: timeAfterFormat }))
             .setColor(0x00FF80)
             .setTimestamp();
 
-        message.channel.send({ embeds: [uptimeCard] }).then(msg => {
+        return ctx.reply({ embeds: [uptimeCard] }).then(msg => {
             deleteMessageSafe(msg, 30 * 1e3);
         });
     }

@@ -21,7 +21,10 @@
 			"helpCard": {
 				"title": "My command",
 				"description": "> Đây là tất cả command tôi có.",
-				"footer": "Để biết chi tiết về command ^help <tên command or aliases>."
+				"footer": "Để biết chi tiết về command ^help <tên command or aliases> hoặc sử dụng /help <tên command>.",
+				"slashCommandsField": {
+					"name": "Lệnh Slash"
+				}
 			},
 			"helpCmdCard": {
 				"title": "Thông tin chi tết về command.",
@@ -29,9 +32,11 @@
 				"fields": {
 					"name": "{name}",
 					"value": "> <:CTG_1:1314635017191690240> **Description:** {description} \n> <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n> <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n> <:CTG_1:1314635017191690240> **Usage:** {usage} \n> <:CTG_2:1314635037198520352> **Category:** {category}",
-					"hasNoUsage": "Lệnh không có cách sử dụng."
+					"hasNoUsage": "Lệnh không có cách sử dụng.",
+					"slashName": "Lệnh Slash",
+					"slashValue": "/{name}"
 				},
-				"footer": "Nếu bạn muốn biết thêm thông tin về command hãy thử ^help <tên command or aliases>."
+				"footer": "Để biết chi tiết về command ^help <tên command or aliases> hoặc sử dụng /help <tên command>."
 			}
 		},
 		"ping": {

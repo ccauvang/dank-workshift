@@ -3,16 +3,10 @@ const { setLocale, ie } = require('../../util/i18n');
 const deleteMessageSafe = require('../../util/deleteMessage');
 
 module.exports = {
-    name: 'ping',
-    aliases: ['pi'],
-    description: 'info.ping.description',
-    cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
-    usage: ['^ping'],
-    async run(message, lang) {
+    async run(ctx, lang) {
         setLocale(lang);
 
-        const ping = message.client.ws.ping;
+        const ping = ctx.client.ws.ping;
 
         const pingCard = new EmbedBuilder()
             .setTitle(ie.__('info.ping.card.title'))
@@ -20,7 +14,7 @@ module.exports = {
             .setColor(0x00FF80)
             .setTimestamp();
 
-        message.channel.send({ embeds: [pingCard] }).then(msg => {
+        return ctx.reply({ embeds: [pingCard] }).then(msg => {
             deleteMessageSafe(msg, 30 * 1e3);
         });
     }

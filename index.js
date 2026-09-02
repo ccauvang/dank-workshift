@@ -18,7 +18,7 @@ client.aliases = new Collection;
 client.cooldown = new Collection;
 client.categories = new Collection;
 
-['event', 'command'].forEach((handler) => {
+['event', 'command', 'slashCommand'].forEach((handler) => {
   const callHandler = require(`./handlers/${handler}`);
   callHandler(client);
 });

@@ -5,22 +5,15 @@ const { setLocale, ie } = require('../../util/i18n');
 const deleteMessageSafe = require('../../util/deleteMessage');
 
 module.exports = {
-    name: 'help',
-    aliases: ['h'],
-    description: 'info.help.description',
-    cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
-    usage: ['^help', '^h'],
-    async run(message, lang, args) {
+    async run(ctx, lang, args) {
         setLocale(lang);
 
-        var prefixServer = await db.get(`Guild._${message.guild.id}.prefix`);
+        var prefixServer = await db.get(`Guild._${ctx.guildId}.prefix`);
         if (prefixServer == null) prefixServer = 'd.';
 
-        const client = message.client;
+        const client = ctx.client;
 
         if (!args[0]) {
-
             const helpCard = new EmbedBuilder()
                 .setTitle(ie.__(`${this.category}.${this.name}.helpCard.title`))
                 .setDescription(ie.__(`${this.category}.${this.name}.helpCard.description`))
@@ -29,17 +22,26 @@ module.exports = {
                 .setTimestamp();
 
             const categories = client.categories.keys();
-            for (ctg of categories) {
+            for (const ctg of categories) {
                 const commands = client.categories.get(ctg);
                 const commandFields = '<:CTG_2:1314635037198520352>' + commands.join(', ');
                 helpCard.addFields({
                     name: ctg, value: commandFields, inline: false
                 });
             };
-            message.channel.send({ embeds: [helpCard] }).then(msg => {
+
+            const slashNames = [...client.slashCommands.keys()];
+            if (slashNames.length > 0) {
+                helpCard.addFields({
+                    name: ie.__(`${this.category}.${this.name}.helpCard.slashCommandsField.name`),
+                    value: slashNames.map(n => `\`/${n}\``).join(', '),
+                    inline: false
+                });
+            }
+
+            return ctx.reply({ embeds: [helpCard] }).then(msg => {
                 deleteMessageSafe(msg, 90 * 1e3);
             });
-            return;
         };
 
         const command = client.commands.get(args[0]) || client.commands.get(client.aliases.get(args[0]));
@@ -73,10 +75,18 @@ module.exports = {
                 .setFooter({ text: ie.__(`${this.category}.${this.name}.helpCmdCard.footer`).replace(/[\^]/g, prefixServer) })
                 .setTimestamp();
 
-            message.channel.send({ embeds: [helpCmdCard] }).then(msg => {
+            const slashCommand = client.slashCommands.get(command.name);
+            if (slashCommand) {
+                helpCmdCard.addFields({
+                    name: ie.__(`${this.category}.${this.name}.helpCmdCard.fields.slashName`),
+                    value: ie.__mf(`${this.category}.${this.name}.helpCmdCard.fields.slashValue`, { name: slashCommand.name }),
+                    inline: true
+                });
+            }
+
+            return ctx.reply({ embeds: [helpCmdCard] }).then(msg => {
                 deleteMessageSafe(msg, 60 * 1e3);
             });
-            return;
         };
     }
 };

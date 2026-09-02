@@ -3,17 +3,10 @@ const { PermissionsBitField, MessageFlags, ComponentType } = require('discord.js
 const { setLocale, ie } = require('../../util/i18n');
 const deleteMessageSafe = require('../../util/deleteMessage');
 const { QuickDB } = require('quick.db');
-const db = new QuickDB({ filePath: "database/main.sqlite" });
-require('dotenv').config();
+const db = new QuickDB({ filePath: 'database/main.sqlite' });
 
 module.exports = {
-    name: 'setlanguage',
-    aliases: ['setlocale', 'lang', 'setlang'],
-    description: 'setting.setlanguage.description',
-    cooldown: 10,
-    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
-    usage: ['^setlanguage', '^setlocal'],
-    async run(message, lang) {
+    async run(ctx, lang) {
         setLocale(lang);
 
         const nonPermissionCard = new EmbedBuilder()
@@ -21,8 +14,8 @@ module.exports = {
             .setDescription(ie.__(`${this.category}.${this.name}.nonPermissionCard.description`))
             .setColor(0xFF0000);
 
-        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            message.channel.send({ embeds: [nonPermissionCard] }).then(msg => {
+        if (!ctx.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
+            ctx.reply({ embeds: [nonPermissionCard] }).then(msg => {
                 deleteMessageSafe(msg, 15 * 1e3);
             });
             return;
@@ -30,20 +23,18 @@ module.exports = {
 
         const languageOptions = [
             {
-                // en
                 label: ie.__(`${this.category}.${this.name}.languageOptions.en.label`),
                 description: ie.__(`${this.category}.${this.name}.languageOptions.en.description`),
                 value: 'en'
             },
             {
-                // vi
                 label: ie.__(`${this.category}.${this.name}.languageOptions.vi.label`),
                 description: ie.__(`${this.category}.${this.name}.languageOptions.vi.description`),
                 value: 'vi'
             }
         ];
 
-        const localOfServer = await db.get(`Guild._${message.guild.id}.localLanguage`) || process.env.LANGUAGE;
+        const localOfServer = await db.get(`Guild._${ctx.guildId}.localLanguage`) || process.env.LANGUAGE;
 
         const setLanguageMenu = new StringSelectMenuBuilder()
             .setCustomId('setLangMenu')
@@ -53,7 +44,6 @@ module.exports = {
 
         languageOptions.forEach((locale) => {
             if (locale.value != localOfServer) {
-
                 const setLanguageMenuOption = new StringSelectMenuOptionBuilder()
                     .setLabel(locale.label)
                     .setDescription(locale.description)
@@ -81,13 +71,13 @@ module.exports = {
             return container;
         };
 
-        const setLanguageMessage = await message.channel.send({
+        const setLanguageMessage = await ctx.reply({
             components: [buildLanguageContainer('setLanguageCard.title', 'setLanguageCard.description', { currentLanguage: localOfServer })],
             flags: MessageFlags.IsComponentsV2
         });
 
         function filler(i) {
-            return message.author.id == i.user.id;
+            return ctx.author.id == i.user.id;
         };
 
         const collector = await setLanguageMessage.createMessageComponentCollector({
@@ -101,14 +91,14 @@ module.exports = {
                 return;
             };
 
-            if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
+            if (!ctx.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
                 menuInteraction.reply({ embeds: [nonPermissionCard], flags: MessageFlags.Ephemeral });
                 return;
             };
 
             const languageUserChoose = menuInteraction.values[0];
 
-            await db.set(`Guild._${message.guildId}.localLanguage`, languageUserChoose);
+            await db.set(`Guild._${menuInteraction.guildId}.localLanguage`, languageUserChoose);
 
             await menuInteraction.update({
                 components: [buildLanguageContainer('setLanguageSuccessCard.title', 'setLanguageSuccessCard.description', { setLang: languageUserChoose }, false)],
@@ -122,6 +112,5 @@ module.exports = {
         collector.on('end', () => {
             deleteMessageSafe(setLanguageMessage, 5 * 1e3);
         });
-
     }
 };

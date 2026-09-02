@@ -21,7 +21,10 @@
 			"helpCard": {
 				"title": "My command",
 				"description": "> This is all command I have.",
-				"footer": "For further information try this ^help <command name or aliases>."
+				"footer": "For further information try this ^help <command name or aliases> or /help <command name>.",
+				"slashCommandsField": {
+					"name": "Slash Commands"
+				}
 			},
 			"helpCmdCard": {
 				"title": "More details of command.",
@@ -29,9 +32,11 @@
 				"fields": {
 					"name": "{name}",
 					"value": "> <:CTG_1:1314635017191690240> **Description:** {description} \n> <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n> <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n> <:CTG_1:1314635017191690240> **Usage:** {usage} \n> <:CTG_2:1314635037198520352> **Category:** {category}",
-					"hasNoUsage": "This command has no usage."
+					"hasNoUsage": "This command has no usage.",
+					"slashName": "Slash Command",
+					"slashValue": "/{name}"
 				},
-				"footer": "For further information try this ^help <command name or aliases>."
+				"footer": "For further information try this ^help <command name or aliases> or /help <command name>."
 			}
 		},
 		"ping": {

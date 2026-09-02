@@ -12,6 +12,11 @@ module.exports = async (client) => {
     await db.set(`botInfo.server`, client.guilds.cache.size);
     startFarmPoll(client);
 
+    const slashDataArr = [...client.slashCommands.values()].map(c => c.slashData.toJSON());
+    // await client.application.commands.set(slashDataArr);
+    await client.application.commands.set(slashDataArr, '955447612700516354');
+    console.log(chalk.magenta(`Registered ${slashDataArr.length} slash command(s).`));
+
     const arrMessage = ['d.h', 'My default prefix is: d.', 'Tag me to know your prefix server and your Dank Memer work catch status'];
     const arrStatus = ['online', 'dnd', 'idle'];
 

@@ -3,18 +3,10 @@ const { PermissionsBitField, MessageFlags, TextInputStyle, ComponentType } = req
 const { setLocale, ie } = require('../../util/i18n');
 const deleteMessageSafe = require('../../util/deleteMessage');
 const { QuickDB } = require('quick.db');
-const db = new QuickDB({ filePath: "database/main.sqlite" });
-require('dotenv').config();
+const db = new QuickDB({ filePath: 'database/main.sqlite' });
 
 module.exports = {
-    name: 'setprefix',
-    aliases: ['prefix', 'pre'],
-    description: 'setting.setprefix.description',
-    cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
-    usage: ['^setprefix'],
-    async run(message, lang) {
-
+    async run(ctx, lang) {
         setLocale(lang);
 
         const nonPermissionCard = new EmbedBuilder()
@@ -22,8 +14,8 @@ module.exports = {
             .setDescription(ie.__(`${this.category}.${this.name}.nonPermissionCard.description`))
             .setColor(0xFF0000);
 
-        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            message.channel.send({ embeds: [nonPermissionCard] }).then(msg => deleteMessageSafe(msg, 15 * 1e3));
+        if (!ctx.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
+            ctx.reply({ embeds: [nonPermissionCard] }).then(msg => deleteMessageSafe(msg, 15 * 1e3));
             return;
         };
 
@@ -42,7 +34,7 @@ module.exports = {
         const setPrefixButtonRow = new ActionRowBuilder()
             .addComponents(setPrefixButton);
 
-        const currentPrefix = await db.get(`Guild._${message.guild.id}.prefix`);
+        const currentPrefix = await db.get(`Guild._${ctx.guildId}.prefix`);
 
         if (currentPrefix != null && currentPrefix != defaultPrefix) {
             setPrefixButtonRow.addComponents(resetPrefixButton);
@@ -61,22 +53,21 @@ module.exports = {
             .setTextInputComponent(setPrefixInput);
 
         const setPrefixModal = new ModalBuilder()
-            .setCustomId(`setPrefixModal_${message.author.id}`)
+            .setCustomId(`setPrefixModal_${ctx.author.id}`)
             .setTitle(ie.__(`${this.category}.${this.name}.setPrefixModal.title`))
             .addLabelComponents(setPrefixLabel);
 
-        // await db.set(`Guild._${message.guild.id}.prefix`, prefixWanToSet);
         const setPrefixCard = new EmbedBuilder()
             .setTitle(ie.__(`${this.category}.${this.name}.setPrefixCard.preview.title`))
             .setDescription(ie.__mf(`${this.category}.${this.name}.setPrefixCard.preview.description`, { currentPrefix: currentPrefix }))
             .setColor(0x00FF80)
-            .setFooter({ text: ie.__mf(`${this.category}.${this.name}.setPrefixCard.preview.footer`, { tag: message.author.tag, }), iconURL: message.author.avatarURL() })
+            .setFooter({ text: ie.__mf(`${this.category}.${this.name}.setPrefixCard.preview.footer`, { tag: ctx.author.tag }), iconURL: ctx.author.avatarURL() })
             .setTimestamp();
 
-        const setPrefixMessage = await message.channel.send({ embeds: [setPrefixCard], components: [setPrefixButtonRow] });
+        const setPrefixMessage = await ctx.reply({ embeds: [setPrefixCard], components: [setPrefixButtonRow] });
 
         function filter(i) {
-            return message.author.id == i.user.id
+            return ctx.author.id == i.user.id
         };
 
         const collector = setPrefixMessage.createMessageComponentCollector({
@@ -87,15 +78,13 @@ module.exports = {
         let canAddAwaitModal = true;
         let endCollector = false;
 
-
-
         collector.on('collect', async (buttonInteraction) => {
             if (!filter(buttonInteraction)) {
                 buttonInteraction.reply({ content: ie.__(`common.isntYour`), flags: MessageFlags.Ephemeral })
                 return;
             };
 
-            if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
+            if (!ctx.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
                 buttonInteraction.reply({ embeds: [nonPermissionCard], flags: MessageFlags.Ephemeral });
                 return;
             };
@@ -138,12 +127,11 @@ module.exports = {
             };
 
             if (buttonInteraction.customId == 'resetPreBtn') {
-
                 const resetPrefixCard = new EmbedBuilder()
                     .setTitle(ie.__(`${this.category}.${this.name}.resetPrefixCard.title`))
                     .setDescription(ie.__mf(`${this.category}.${this.name}.resetPrefixCard.description`, { defaultPrefix: defaultPrefix }))
                     .setColor(0x00FF80)
-                    .setFooter({ text: ie.__mf(`${this.category}.${this.name}.resetPrefixCard.footer`, { tag: message.author.tag, }), iconURL: message.author.avatarURL() })
+                    .setFooter({ text: ie.__mf(`${this.category}.${this.name}.resetPrefixCard.footer`, { tag: ctx.author.tag }), iconURL: ctx.author.avatarURL() })
                     .setTimestamp();
 
                 await buttonInteraction.update({ embeds: [resetPrefixCard], components: [] });
@@ -158,6 +146,5 @@ module.exports = {
             endCollector = true;
             deleteMessageSafe(setPrefixMessage, 5 * 1e3);
         });
-
     }
 };

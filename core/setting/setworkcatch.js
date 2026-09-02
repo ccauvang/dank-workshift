@@ -6,39 +6,33 @@ const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: 'database/main.sqlite' });
 
 module.exports = {
-    name: 'farmremind',
-    aliases: ['fr', 'farmr'],
-    description: 'farm.farmremind.description',
-    cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(), // name of the folder
-    usage: ['^farmremind', '^fr'],
-    async run(message, lang) {
+    async run(ctx, lang) {
         setLocale(lang);
 
-        const userStatus = await db.get(`User._${message.author.id}.catchFarmMsg`);
+        const userStatus = await db.get(`User._${ctx.author.id}.catchDankMsg`);
 
         const newUserCard = new EmbedBuilder()
             .setTitle(ie.__(`${this.category}.${this.name}.newUserCard.title`))
             .setColor(0x00FF80);
 
-        const setFRButtonEnable = new ButtonBuilder()
-            .setCustomId(`setFR:${message.author.id}:enable`)
+        const setWCButtonEnable = new ButtonBuilder()
+            .setCustomId(`setWC:${ctx.author.id}:enable`)
             .setLabel(ie.__('common.Enable'))
             .setStyle(ButtonStyle.Success);
 
-        const setFRButtonDisable = new ButtonBuilder()
-            .setCustomId(`setFR:${message.author.id}:disable`)
+        const setWCButtonDisable = new ButtonBuilder()
+            .setCustomId(`setWC:${ctx.author.id}:disable`)
             .setLabel(ie.__('common.Disable'))
             .setStyle(ButtonStyle.Danger);
 
         if (userStatus == null || userStatus == 0) {
-            setFRButtonDisable.setDisabled(true);
+            setWCButtonDisable.setDisabled(true);
         } else {
-            setFRButtonEnable.setDisabled(true);
+            setWCButtonEnable.setDisabled(true);
         };
 
-        const setFRActionRow = new ActionRowBuilder()
-            .setComponents(setFRButtonDisable, setFRButtonEnable);
+        const setWCActionRow = new ActionRowBuilder()
+            .setComponents(setWCButtonDisable, setWCButtonEnable);
 
         const buildSettingContainer = (statusKey) => {
             return new ContainerBuilder()
@@ -50,19 +44,19 @@ module.exports = {
                     )
                 )
                 .addSeparatorComponents(new SeparatorBuilder())
-                .addActionRowComponents(setFRActionRow);
+                .addActionRowComponents(setWCActionRow);
         };
 
-        const farmRemindMessage = await message.channel.send({
+        const setWorkCatchMessage = await ctx.reply({
             components: [buildSettingContainer(userStatus == 0 || userStatus == null ? 'common.Off' : 'common.On')],
             flags: MessageFlags.IsComponentsV2
         });
 
         function filter(i) {
-            return message.author.id == i.user.id;
+            return ctx.author.id == i.user.id;
         };
 
-        const collector = farmRemindMessage.createMessageComponentCollector({
+        const collector = setWorkCatchMessage.createMessageComponentCollector({
             componentType: ComponentType.Button,
             time: 120 * 1e3
         });
@@ -70,22 +64,20 @@ module.exports = {
         let checkNull = true;
 
         collector.on('collect', async (buttonInteraction) => {
-
             if (!filter(buttonInteraction)) {
                 buttonInteraction.reply({ content: ie.__(`common.isntYour`), flags: MessageFlags.Ephemeral })
                 return;
             };
 
-            if (buttonInteraction.customId == `setFR:${buttonInteraction.user.id}:enable`) {
-
-                await db.set(`User._${buttonInteraction.user.id}.catchFarmMsg`, 1);
-                setFRButtonEnable.setDisabled(true);
-                setFRButtonDisable.setDisabled(false);
+            if (buttonInteraction.customId == `setWC:${buttonInteraction.user.id}:enable`) {
+                await db.set(`User._${buttonInteraction.user.id}.catchDankMsg`, 1);
+                setWCButtonEnable.setDisabled(true);
+                setWCButtonDisable.setDisabled(false);
 
                 if (userStatus == null && checkNull) {
                     checkNull = false;
                     await buttonInteraction.reply({ embeds: [newUserCard], flags: MessageFlags.Ephemeral });
-                    await farmRemindMessage.edit({ components: [buildSettingContainer('common.On')], flags: MessageFlags.IsComponentsV2 });
+                    await setWorkCatchMessage.edit({ components: [buildSettingContainer('common.On')], flags: MessageFlags.IsComponentsV2 });
                 } else {
                     await buttonInteraction.update({ components: [buildSettingContainer('common.On')], flags: MessageFlags.IsComponentsV2 });
                 };
@@ -93,21 +85,19 @@ module.exports = {
                 collector.resetTimer({ time: 60 * 1e3 });
             };
 
-            if (buttonInteraction.customId == `setFR:${buttonInteraction.user.id}:disable`) {
-                await db.set(`User._${buttonInteraction.user.id}.catchFarmMsg`, 0);
-                setFRButtonDisable.setDisabled(true);
-                setFRButtonEnable.setDisabled(false);
+            if (buttonInteraction.customId == `setWC:${buttonInteraction.user.id}:disable`) {
+                await db.set(`User._${buttonInteraction.user.id}.catchDankMsg`, 0);
+                setWCButtonDisable.setDisabled(true);
+                setWCButtonEnable.setDisabled(false);
 
                 await buttonInteraction.update({ components: [buildSettingContainer('common.Off')], flags: MessageFlags.IsComponentsV2 });
 
                 collector.resetTimer({ time: 60 * 1e3 });
             };
-
         });
 
         collector.on('end', () => {
-            deleteMessageSafe(farmRemindMessage, 5 * 1e3);
+            deleteMessageSafe(setWorkCatchMessage, 5 * 1e3);
         });
-
     }
 };
