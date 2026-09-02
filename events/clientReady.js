@@ -13,8 +13,8 @@ module.exports = async (client) => {
     startFarmPoll(client);
 
     const slashDataArr = [...client.slashCommands.values()].map(c => c.slashData.toJSON());
-    await client.application.commands.set(slashDataArr);
-    // await client.application.commands.set(slashDataArr, process.env.TEST_GUILD_ID);
+    // await client.application.commands.set(slashDataArr);
+    await client.application.commands.set(slashDataArr, process.env.TEST_GUILD_ID);
     console.log(chalk.magenta(`Registered ${slashDataArr.length} slash command(s).`));
 
     const arrMessage = ['d.h', 'My default prefix is: d.', 'Tag me to know your prefix server and your Dank Memer work catch status'];
