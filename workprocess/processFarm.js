@@ -261,6 +261,7 @@ async function checkFarmRemind(client) {
             const hasAnyPlot = remaining && Object.keys(remaining).some((k) => k != "channelId");
             if (!hasAnyPlot) {
                 await db.delete(`FarmRemind.${userID}`);
+                await db.delete(`User._${userID}.farm`);
             }
         } catch (error) {
             console.error(`Error sending farm remind: User ${userID}.`, error);
