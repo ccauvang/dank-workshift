@@ -9,55 +9,46 @@ const SEED_DATA = {
     "1050571150985543710": {
         key: "beans",
         displayName: "Bean Seeds",
-        growSeconds: 1 * 3600,
         emoji: "<:BeanSeeds:1543592918189740042>"
     },
     "997302171110481960": {
         key: "potato",
         displayName: "Potato",
-        growSeconds: 2 * 3600,
         emoji: "<:PotatoCrate:1543592931837874356>"
     },
     "996880154318090290": {
         key: "corn",
         displayName: "Corn",
-        growSeconds: 6 * 3600,
         emoji: "<:CornBag:1543592926225895444>"
     },
     "998015510992130068": {
         key: "carrot",
         displayName: "Carrot",
-        growSeconds: 8 * 3600,
         emoji: "<:CarrotSeeds:1543592924065824819>"
     },
     "998341356034478241": {
         key: "broccoli",
         displayName: "Broccoli",
-        growSeconds: 18 * 3600,
         emoji: "<:BroccoliSeeds:1543592920257404938>"
     },
     "1050571042436943893": {
         key: "watermelon",
         displayName: "Watermelon",
-        growSeconds: 24 * 3600,
         emoji: "<:WatermelonSeeds:1543592936074256404>"
     },
     "1408550527679074365": {
         key: "taro",
         displayName: "Taro",
-        growSeconds: 30 * 3600,
         emoji: "<:TaroSeeds:1543592934124032151>"
     },
     "1064912414430220388": {
         key: "lotus-flower",
         displayName: "Lotus Flower",
-        growSeconds: 48 * 3600,
         emoji: "<:Lotusseed:1543592929921335326>"
     },
     "1230865725166452836": {
         key: "delta9",
         displayName: "Delta9",
-        growSeconds: 60 * 3600,
         emoji: "<:Delta9Seeds:1543592928100876298>"
     }
 };
