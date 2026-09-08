@@ -87,9 +87,14 @@ async function processFarm(message) {
     } else {
         if (message.reference == null) return;
 
-        const repliedMessage = await message.channel.messages.fetch(
-            message.reference.messageId
-        );
+         try {
+            repliedMessage = await message.channel.messages.fetch(
+                message.reference.messageId
+            );
+        } catch (error) {
+            console.log(error);
+            return; // msg gone/uncached/no perm, skip
+        }
         if (!repliedMessage || repliedMessage.content == "") return;
         if (repliedMessage.content.match(/farm view/i) == null) return;
 
