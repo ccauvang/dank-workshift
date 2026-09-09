@@ -87,14 +87,17 @@ async function processFarm(message) {
     } else {
         if (message.reference == null) return;
 
-         try {
-            repliedMessage = await message.channel.messages.fetch(
-                message.reference.messageId
-            );
-        } catch (error) {
-            console.log(error);
-            return; // msg gone/uncached/no perm, skip
+        let repliedMessage = message.channel.messages.cache.get(message.reference.messageId);
+        if (!repliedMessage) {
+            try {
+                repliedMessage = await message.channel.messages.fetch(message.reference.messageId);
+            } catch (error) {
+                if (error.code == 10008) return; // msg deleted, expected, skip silently
+                console.error('processFarm fetch fail:', error);
+                return;
+            }
         }
+        
         if (!repliedMessage || repliedMessage.content == "") return;
         if (repliedMessage.content.match(/farm view/i) == null) return;
 
