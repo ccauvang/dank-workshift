@@ -10,6 +10,14 @@ const client = new Client({
   partials: [Partials.Message, Partials.Channel]
 });
 
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled Rejection:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+});
+
 require('dotenv').config();
 client.login(process.env.TOKEN);
 

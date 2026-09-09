@@ -43,14 +43,19 @@
 			"description": "Hiển thị ping.",
 			"card": {
 				"title": "Pong 🏓",
-				"description": "> <a:G:1313857088245731359> {ping}ms."
+				"description": "> <a:G:1313857088245731359> {ping}ms.",
+				"fields": {
+					"ram": "RAM",
+					"cpu": "CPU Load",
+					"node": "Node.js"
+				}
 			}
 		},
 		"uptime": {
 			"description": "Hiển thị thời gian uptime.",
 			"card": {
 				"title": "Uptime được.",
-				"description": "> {time} trước."
+				"description": "> Đã bật: **{time}**\n> Khởi động lúc: {startedAt} ({startedAtRelative})"
 			}
 		}
 	},

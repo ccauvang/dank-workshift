@@ -43,14 +43,19 @@
 			"description": "Show my ping.",
 			"card": {
 				"title": "Pong 🏓",
-				"description": "> <a:G:1313857088245731359> {ping}ms."
+				"description": "> <a:G:1313857088245731359> {ping}ms.",
+				"fields": {
+					"ram": "RAM",
+					"cpu": "CPU Load",
+					"node": "Node.js"
+				}
 			}
 		},
 		"uptime": {
 			"description": "Show how long I online.",
 			"card": {
 				"title": "I was online.",
-				"description": "> {time} ago."
+				"description": "> Up: **{time}**\n> Started: {startedAt} ({startedAtRelative})"
 			}
 		}
 	},
