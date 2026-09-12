@@ -269,7 +269,7 @@ async function checkFarmRemind(client) {
     }
 }
 
-function startFarmPoll(client, intervalMs = 20 * 1e3) {
+function startFarmPoll(client, intervalMs = 30 * 1e3) {
     setInterval(() => {
         checkFarmRemind(client).catch(console.error);
     }, intervalMs);
