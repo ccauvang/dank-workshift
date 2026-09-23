@@ -240,7 +240,7 @@ async function checkFarmRemind(client) {
                 .then((msg) => {
                     deleteMessageSafe(
                         msg,
-                        3 * 60 * 1e3,
+                        180 * 60 * 1e3,
                         `Farm remind msg for user ${userID}.`
                     );
                 });
