@@ -7,7 +7,7 @@ module.exports = {
     description: 'farm.farmremind.description',
     cooldown: 5,
     category: __dirname.split(/(\\|\/)/).pop(),
-    usage: ['^farmremind', '^fr'],
+    usage: ['^farmremind', '^fr', '^farmr'],
     async run(message, lang) {
         const ctx = buildCtxFromMessage(message);
         return core.run.call(this, ctx, lang);

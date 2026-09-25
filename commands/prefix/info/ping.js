@@ -1,4 +1,3 @@
-// commands/prefix/info/ping.js
 const core = require('../../../core/info/ping');
 const { buildCtxFromMessage } = require('../../../util/buildCtx');
 

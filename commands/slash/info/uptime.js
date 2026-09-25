@@ -1,4 +1,3 @@
-// commands/slash/info/uptime.js
 const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const core = require('../../../core/info/uptime');
 const { buildCtxFromInteraction } = require('../../../util/buildCtx');

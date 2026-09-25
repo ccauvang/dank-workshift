@@ -1,4 +1,3 @@
-// commands/slash/info/help.js
 const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const core = require('../../../core/info/help');
 const { buildCtxFromInteraction } = require('../../../util/buildCtx');

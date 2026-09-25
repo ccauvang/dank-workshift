@@ -1,4 +1,3 @@
-// core/farm/farmremind.js
 const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ContainerBuilder, TextDisplayBuilder, SeparatorBuilder } = require('@discordjs/builders');
 const { MessageFlags, ComponentType, ButtonStyle } = require('discord.js');
 const { setLocale, ie } = require('../../util/i18n');
