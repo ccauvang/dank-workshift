@@ -1,4 +1,16 @@
 {
+	"fish": {
+		"npcsremind": {
+			"description": "Nhắc bạn khi bạn có thể triệu hồi lại NPC.",
+			"newUserCard": {
+				"title": "Hello bro, người triệu hồi mới ?"
+			},
+			"settingCard": {
+				"title": "Nhắc bạn khi bạn có thể triệu hồi lại NPC.",
+				"description": "> Hiện tại: **{status}**"
+			}
+		}
+	},
 	"farm": {
 		"farmremind": {
 			"description": "Nhắc bạn khi cây trồng sẵn sàng thu hoạch.",

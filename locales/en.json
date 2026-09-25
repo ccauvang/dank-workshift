@@ -1,4 +1,16 @@
 {
+	"fish": {
+		"npcsremind": {
+			"description": "Remind you when you can summon NPC again.",
+			"newUserCard": {
+				"title": "Hello new summoner."
+			},
+			"settingCard": {
+				"title": "Remind when you can summon NPC again.",
+				"description": "> Current: **{status}**"
+			}
+		}
+	},
 	"farm": {
 		"farmremind": {
 			"description": "Remind you when your farm plant fully grow, ready to harvest.",
