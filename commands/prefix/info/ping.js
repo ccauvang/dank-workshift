@@ -6,7 +6,7 @@ module.exports = {
     aliases: ['pi'],
     description: 'info.ping.description',
     cooldown: 5,
-    category: __dirname.split(/(\\|\/)/).pop(), // still "info", depth doesn't matter
+    category: __dirname.split(/(\\|\/)/).pop(),
     usage: ['^ping'],
     async run(message, lang) {
         const ctx = buildCtxFromMessage(message);
