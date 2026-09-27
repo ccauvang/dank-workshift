@@ -8,6 +8,10 @@
 			"settingCard": {
 				"title": "Remind when you can summon NPC again.",
 				"description": "> Current: **{status}**"
+			},
+			"remindCard": {
+				"title": "You can summon NPC again!",
+				"description": "> Go summon your NPC now."
 			}
 		}
 	},

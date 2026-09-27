@@ -2,6 +2,7 @@ const { EmbedBuilder } = require('@discordjs/builders');
 const { Collection } = require('discord.js');
 const workProcess = require('../workprocess/processWorkMgs');
 const { processFarm } = require('../workprocess/processFarm');
+const { processNPCSummon } = require('../workprocess/processNPCSummon');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB({ filePath: 'database/main.sqlite' });
 const { setLocale, ie } = require('../util/i18n');
@@ -15,6 +16,7 @@ module.exports = async (client, message) => {
   if (message.author.id == process.env.IDBOTDISCORD) {
     workProcess(message);
     processFarm(message);
+    processNPCSummon(message);
   };
   if (message.bot) return;
 

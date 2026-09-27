@@ -1,4 +1,5 @@
 const { processFarm } = require('../workprocess/processFarm');
+const { processNPCSummon } = require('../workprocess/processNPCSummon');
 require('dotenv').config();
 
 const cooldownMap = new Map();
@@ -12,4 +13,5 @@ module.exports = async (client, oldMessage, newMessage) => {
     setTimeout(() => cooldownMap.delete(newMessage.id), COOLDOWN_MS);
 
     await processFarm(newMessage);
+    await processNPCSummon(newMessage);
 };

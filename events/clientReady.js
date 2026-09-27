@@ -3,6 +3,7 @@ const db = new QuickDB({ filePath: "database/main.sqlite" });
 const chalk = require('chalk');
 const moment = require('moment');
 const { startFarmPoll } = require('../workprocess/processFarm');
+const { startNPCSummonPoll } = require('../workprocess/processNPCSummon');
 
 module.exports = async (client) => {
     const now = moment().format('hh:mm:ss | DD/MMM/YYYY');
@@ -11,6 +12,7 @@ module.exports = async (client) => {
 
     await db.set(`botInfo.server`, client.guilds.cache.size);
     startFarmPoll(client);
+    startNPCSummonPoll(client);
 
     const slashDataArr = [...client.slashCommands.values()].map(c => c.slashData.toJSON());
     // await client.application.commands.set(slashDataArr);
