@@ -12,6 +12,6 @@ module.exports = async (client, oldMessage, newMessage) => {
     cooldownMap.set(newMessage.id, true);
     setTimeout(() => cooldownMap.delete(newMessage.id), COOLDOWN_MS);
 
-    await processFarm(newMessage);
-    await processNPCSummon(newMessage);
+    await processFarm(newMessage).catch(console.error);
+    await processNPCSummon(newMessage).catch(console.error);
 };

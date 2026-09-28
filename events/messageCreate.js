@@ -14,9 +14,9 @@ module.exports = async (client, message) => {
   if (message.author.id == client.user.id) return;
   if (!message.guild) return;
   if (message.author.id == process.env.IDBOTDISCORD) {
-    workProcess(message);
-    processFarm(message);
-    processNPCSummon(message);
+    workProcess(message).catch(console.error);
+    processFarm(message).catch(console.error);
+    processNPCSummon(message).catch(console.error);
   };
   if (message.bot) return;
 

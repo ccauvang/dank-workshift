@@ -18,7 +18,7 @@ function getEmbedDescription(embed) {
 
 async function processNPCSummon(message) {
     if (!message) return;
-    if (message.author.id != process.env.IDBOTDISCORD) return;
+    if (message.author?.id != process.env.IDBOTDISCORD) return;
     if (!message.embeds || message.embeds.length < 1) return;
 
     let userID = null;
@@ -61,7 +61,8 @@ async function processNPCSummon(message) {
     if (userCatchStatus == null || userCatchStatus == 0) return;
 
     // "fish npc" can render other embeds too (e.g. already summoned) - only track the Summoning Table one
-    const summonEmbed = message.embeds.find((e) => getEmbedTitle(e) == "Summoning Table");
+    const summonEmbed = message.embeds.find((e) =>
+        (getEmbedTitle(e) || "").toLowerCase().includes("summoning table"));
     if (!summonEmbed) return;
 
     const description = getEmbedDescription(summonEmbed);
@@ -116,7 +117,7 @@ async function checkNPCSummonRemind(client) {
             await channel
                 .send({ content: `<@${userID}>`, embeds: [remindCard] })
                 .then((msg) => {
-                    deleteMessageSafe(msg, 180 * 60 * 1e3, `NPC summon remind msg for user ${userID}.`);
+                    deleteMessageSafe(msg, 60 * 60 * 1e3, `NPC summon remind msg for user ${userID}.`);
                 });
 
             await db.delete(`User._${userID}.npcSummon`);
