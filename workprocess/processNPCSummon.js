@@ -117,7 +117,7 @@ async function checkNPCSummonRemind(client) {
             await channel
                 .send({ content: `<@${userID}>`, embeds: [remindCard] })
                 .then((msg) => {
-                    deleteMessageSafe(msg, 60 * 60 * 1e3, `NPC summon remind msg for user ${userID}.`);
+                    deleteMessageSafe(msg, 15 * 60 * 1e3, `NPC summon remind msg for user ${userID}.`);
                 });
 
             await db.delete(`User._${userID}.npcSummon`);
