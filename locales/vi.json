@@ -73,6 +73,14 @@
 				"title": "Uptime được.",
 				"description": "> Đã bật: **{time}**\n> Khởi động lúc: {startedAt} ({startedAtRelative})"
 			}
+		},
+		"myinfo": {
+			"description": "Hiển thị thông tin trạng thái của bạn.",
+			"card": {
+				"title": "Trạng thái catch của bạn.",
+				"description": "> Work: **{work}**\n> Farm: **{farm}**\n> NPC: **{npc}**",
+				"footer": "Who are you?"
+			}
 		}
 	},
 	"setting": {
@@ -89,7 +97,7 @@
 		"setprefix": {
 			"description": "Cài prefix cho server của bạn.",
 			"nonPermissionCard": {
-				"title": "Bạn không có đủ quyền hạn để set prefix.",
+				"title": "Bạn không có đủ quyền hạn.",
 				"description": "Bạn cần quyền admin để set prefix."
 			},
 			"setprefixModal": {
@@ -149,7 +157,7 @@
 	},
 	"tagResponseCard": {
 		"title": "Bạn đang cần giúp?",
-		"description": "> Prefix server hiện tại: **{serverPrefix}** \n> Trạng thái Dank work catch của bạn: **{userStatus}**.",
+		"description": "> Prefix server hiện tại: **{serverPrefix}** \n> Trạng thái Work catch của bạn: **{workStatus}** \n> Trạng thái Farm remind của bạn: **{farmStatus}** \n> Trạng thái NPC remind của bạn: **{npcStatus}**.",
 		"footer": "Nó giúp ích bạn chứ?"
 	},
 	"timeFormat": {

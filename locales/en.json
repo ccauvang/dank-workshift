@@ -1,28 +1,28 @@
 {
 	"fish": {
 		"npcsremind": {
-			"description": "Remind you when you can summon NPC again.",
+			"description": "Remind you when you can summon an NPC again.",
 			"newUserCard": {
-				"title": "Hello new summoner."
+				"title": "Hello, new summoner."
 			},
 			"settingCard": {
-				"title": "Remind when you can summon NPC again.",
+				"title": "Remind when you can summon an NPC again.",
 				"description": "> Current: **{status}**"
 			},
 			"remindCard": {
-				"title": "You can summon NPC again!",
+				"title": "You can summon an NPC again!",
 				"description": "> Go summon your NPC now."
 			}
 		}
 	},
 	"farm": {
 		"farmremind": {
-			"description": "Remind you when your farm plant fully grow, ready to harvest.",
+			"description": "Remind you when your farm plants are fully grown and ready to harvest.",
 			"newUserCard": {
-				"title": "Hello new farmer."
+				"title": "Hello, new farmer."
 			},
 			"settingCard": {
-				"title": "Remind when your plant ready to harvest.",
+				"title": "Remind when your plants are ready to harvest.",
 				"description": "> Current: **{status}**"
 			},
 			"remindCard": {
@@ -35,16 +35,16 @@
 		"help": {
 			"description": "Show some info to help you.",
 			"helpCard": {
-				"title": "My command",
-				"description": "> This is all command I have.",
-				"footer": "For further information try this ^help <command name or aliases> or /help <command name>.",
+				"title": "My commands",
+				"description": "> These are all the commands I have.",
+				"footer": "For further information, try ^help <command name or alias> or /help <command name>.",
 				"slashCommandsField": {
 					"name": "Slash Commands"
 				}
 			},
 			"helpCmdCard": {
-				"title": "More details of command.",
-				"description": "> Hopefully this can help you.",
+				"title": "More details about the command.",
+				"description": "> Hopefully this helps you.",
 				"fields": {
 					"name": "{name}",
 					"value": "> <:CTG_1:1314635017191690240> **Description:** {description} \n> <:CTG_1:1314635017191690240> **Aliases:** {aliases} \n> <:CTG_1:1314635017191690240> **Cooldown:** {cooldown} \n> <:CTG_1:1314635017191690240> **Usage:** {usage} \n> <:CTG_2:1314635037198520352> **Category:** {category}",
@@ -52,7 +52,7 @@
 					"slashName": "Slash Command",
 					"slashValue": "/{name}"
 				},
-				"footer": "For further information try this ^help <command name or aliases> or /help <command name>."
+				"footer": "For further information, try ^help <command name or alias> or /help <command name>."
 			}
 		},
 		"ping": {
@@ -68,18 +68,26 @@
 			}
 		},
 		"uptime": {
-			"description": "Show how long I online.",
+			"description": "Show how long I have been online.",
 			"card": {
-				"title": "I was online.",
+				"title": "I have been online.",
 				"description": "> Up: **{time}**\n> Started: {startedAt} ({startedAtRelative})"
+			}
+		},
+		"myinfo": {
+			"description": "Show your status info.",
+			"card": {
+				"title": "Your catch status.",
+				"description": "> Work: **{work}**\n> Farm: **{farm}**\n> NPC: **{npc}**",
+				"footer": "Hello, bro! Who are you?"
 			}
 		}
 	},
 	"setting": {
 		"setworkcatch": {
-			"description": "Set status bot help your work or not.",
+			"description": "Set whether the bot helps with your work or not.",
 			"newUserCard": {
-				"title": "Omg your are new user damnnnn."
+				"title": "OMG, you are a new user, damnnnn."
 			},
 			"settingCard": {
 				"title": "Catch your Dank Memer work message.",
@@ -89,35 +97,35 @@
 		"setprefix": {
 			"description": "Set your server prefix.",
 			"nonPermissionCard": {
-				"title": "You don't have enough permission to set prefix of this server.",
-				"description": "You need admin permission to set prefix."
+				"title": "You don't have enough permissions.",
+				"description": "You need admin permission to set the prefix."
 			},
 			"setPrefixModal": {
-				"title": "Prefix you want to set."
+				"title": "The prefix you want to set."
 			},
 			"resetPrefixCard": {
 				"title": "Reset successful.",
 				"description": "> Current: **{defaultPrefix}**",
-				"footer": "User use this command is {tag}."
+				"footer": "The user of this command is {tag}."
 			},
 			"setPrefixCard": {
 				"preview": {
 					"title": "Set prefix.",
 					"description": "> Current: **{currentPrefix}**",
-					"footer": "User use this command is {tag}."
+					"footer": "The user of this command is {tag}."
 				},
 				"success": {
-					"title": "Set successful.",
+					"title": "Set successfully.",
 					"description": "> Current: **{prefix}**",
-					"footer": "User use this command is {tag}."
+					"footer": "The user of this command is {tag}."
 				}
 			}
 		},
 		"setlanguage": {
-			"description": "Set language bot use in your server.",
+			"description": "Set the language the bot uses in your server.",
 			"nonPermissionCard": {
-				"title": "You don't have enough permission to set prefix of this server.",
-				"description": "You need admin permission to set prefix."
+				"title": "You don't have enough permissions.",
+				"description": "You need admin permission to set the language."
 			},
 			"languageOptions": {
 				"en": {
@@ -126,27 +134,27 @@
 				},
 				"vi": {
 					"label": "Vi",
-					"description": "Set language to Vietnam."
+					"description": "Set language to Vietnamese."
 				}
 			},
 			"setLangMenu": {
-				"placeholder": "Choose language."
+				"placeholder": "Choose a language."
 			},
 			"setLanguageCard": {
 				"title": "Set language.",
 				"description": "> Language: **{currentLanguage}**",
-				"footer": "User use this command is {tag}."
+				"footer": "The user of this command is {tag}."
 			},
 			"setLanguageSuccessCard": {
-				"title": "Set language success.",
+				"title": "Language set successfully.",
 				"description": "> Language: **{setLang}**",
-				"footer": "User use this command is {tag}."
+				"footer": "The user of this command is {tag}."
 			}
 		}
 	},
 	"tagResponseCard": {
 		"title": "Do you need help?",
-		"description": "> Prefix current server: **{serverPrefix}** \n> Your Dank work catch status: **{userStatus}**.",
+		"description": "> Current server prefix: **{serverPrefix}** \n> Your Dank work catch status: **{workStatus}** \n> Your Farm remind status: **{farmStatus}** \n> Your NPC remind status: **{npcStatus}**.",
 		"footer": "Was this helpful?"
 	},
 	"timeFormat": {
@@ -157,9 +165,9 @@
 		"seconds": "seconds"
 	},
 	"common": {
-		"cooldownMessage": "Hey chill bro \nWait {cooldownTime}.",
+		"cooldownMessage": "Hey, chill bro \nWait {cooldownTime}.",
 		"errorCommand": "Error command.",
-		"isntYour": "This isn't your bro!",
+		"isntYour": "This isn't yours, bro!",
 		"On": "<:CY:1316032918665035897> Enable",
 		"Off": "<:CX:1316032934230360175> Disable",
 		"Enable": "Enable",

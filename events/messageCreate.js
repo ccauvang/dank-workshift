@@ -33,9 +33,13 @@ module.exports = async (client, message) => {
 
   setLocale(lang);
 
-  var userStatus = await db.get(`User._${message.author.id}.catchDankMsg`);
 
-  userStatus = (userStatus == 0 || userStatus == null) ? ie.__('common.Off') : ie.__('common.On');
+  const toStatus = (v) => (v == 0 || v == null) ? ie.__('common.Off') : ie.__('common.On');
+
+  const userData = await db.get(`User._${message.author.id}`) || {};
+  const workStatus = toStatus(userData.catchDankMsg);
+  const farmStatus = toStatus(userData.catchFarmMsg);
+  const npcStatus = toStatus(userData.catchNPCSummonMsg);
 
 
 
@@ -60,7 +64,12 @@ module.exports = async (client, message) => {
 
     const tagResponseCard = new EmbedBuilder()
       .setTitle(ie.__(`tagResponseCard.title`))
-      .setDescription(ie.__mf(`tagResponseCard.description`, { serverPrefix: serverPrefix, userStatus: userStatus }))
+      .setDescription(ie.__mf(`tagResponseCard.description`, {
+        serverPrefix: serverPrefix,
+        workStatus: workStatus,
+        farmStatus: farmStatus,
+        npcStatus: npcStatus
+      }))
       .setColor(0x00FF80)
       .setFooter({ text: ie.__(`tagResponseCard.footer`) })
       .setTimestamp();
