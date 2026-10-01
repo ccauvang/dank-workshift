@@ -1,17 +1,15 @@
-const { processFarm } = require('../workprocess/processFarm');
-const { processNPCSummon } = require('../workprocess/processNPCSummon');
+const { processDankMessage } = require('../util/workDispatcher');
 require('dotenv').config();
 
-const cooldownMap = new Map();
-const COOLDOWN_MS = 3000;
+const timers = new Map();
+const DEBOUNCE_MS = 1500;
 
 module.exports = async (client, oldMessage, newMessage) => {
     if (newMessage.author?.id != process.env.IDBOTDISCORD) return;
 
-    if (cooldownMap.has(newMessage.id)) return;
-    cooldownMap.set(newMessage.id, true);
-    setTimeout(() => cooldownMap.delete(newMessage.id), COOLDOWN_MS);
-
-    await processFarm(newMessage).catch(console.error);
-    await processNPCSummon(newMessage).catch(console.error);
+    clearTimeout(timers.get(newMessage.id));
+    timers.set(newMessage.id, setTimeout(() => {
+        timers.delete(newMessage.id);
+        processDankMessage(newMessage, 'update');
+    }, DEBOUNCE_MS));
 };
