@@ -23,7 +23,7 @@ async function getInfoUserAndSendTheHelpMessage(message, IDUser, commandName) {
                 setTimeout(() => {
                     message.reactions.removeAll().catch(console.error);
                     msg.delete().catch(console.error);
-                }, 30 * 1e3);
+                }, 60 * 1e3);
             };
         });
     };
