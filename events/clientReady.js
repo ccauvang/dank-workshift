@@ -19,10 +19,9 @@ module.exports = async (client) => {
     await client.application.commands.set(slashDataArr, process.env.TEST_GUILD_ID);
     console.log(chalk.magenta(`Registered ${slashDataArr.length} slash command(s).`));
 
-    const arrMessage = ['d.h', 'My default prefix is: d.', 'Tag me to know your prefix server and your Dank Memer work catch status'];
+    const arrMessage = ['d.h', 'My default prefix is: d.', 'Tag me to know your server prefix and your Dank Memer work catch status'];
     const arrStatus = ['online', 'dnd', 'idle'];
 
-    // count variable
     var oldMessage = 0;
     var oldStatus = 0;
 
@@ -53,5 +52,5 @@ module.exports = async (client) => {
             }],
             status: rerollStatus
         });
-    }, 20000);
+    }, 30000);
 };
