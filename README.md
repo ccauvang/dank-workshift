@@ -2,6 +2,7 @@
 
 A Discord helper bot that makes playing [**Dank Memer**](https://dankmemer.lol/) easier.
 
+> [!CAUTION]
 > This project is not affiliated with Dank Memer.
 
 Supports both prefix and slash commands.
@@ -55,7 +56,8 @@ Prefer a private copy? Host the bot yourself.
    npm start
    ```
 
-Slash commands are registered to `TEST_GUILD_ID` only. For global registration, edit `events/clientReady.js` and use the commented-out line.
+> [!NOTE]
+> Slash commands are registered to `TEST_GUILD_ID` only. For global registration, edit `events/clientReady.js` and use the commented-out line.
 
 ## Languages
 
