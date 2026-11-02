@@ -46,6 +46,11 @@ const SEED_DATA = {
         displayName: "Lotus Flower",
         emoji: "<:Lotusseed:1543592929921335326>"
     },
+    "1563617052449702039": {
+        key: "pumpkin",
+        displayName: "Pumpkin",
+        emoji: "<:Pumpkin:1566853875393106102>"
+    },
     "1230865725166452836": {
         key: "delta9",
         displayName: "Delta9",
@@ -54,7 +59,7 @@ const SEED_DATA = {
 };
 
 // match: <:emojiName:emojiId> Seed Display Name ready|wilted <t:unixTs:R>
-const PLOT_LINE_REGEX = /<:(\w+):(\d+)>\s*(.+?)\s+(ready|wilted)\s+<t:(\d+):R>/;
+const PLOT_LINE_REGEX = /<a?:(\w+):(\d+)>\s*(.+?)\s+(ready|wilted)\s+<t:(\d+):R>/;
 
 function extractTextContents(components) {
     let texts = [];
@@ -78,7 +83,7 @@ async function processFarm(message) {
 
     if (message.interaction != null || message.interactionMetadata != null) {
         const interactionName = message.interaction?.commandName || message.interactionMetadata?.commandName;
-        if (interactionName != "farm view") return; // not our command, skip
+        if (interactionName != "farm") return; // not our command, skip
 
         userID =
             message.interaction != null
